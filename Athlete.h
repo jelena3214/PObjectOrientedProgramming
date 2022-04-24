@@ -6,7 +6,6 @@
 #define POOP_ATHLETE_H
 #include<string.h>
 #include<iostream>
-#include "Team.h"
 #include "Competitor.h"
 
 using namespace std;

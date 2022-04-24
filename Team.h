@@ -5,13 +5,15 @@
 #ifndef POOP_TEAM_H
 #define POOP_TEAM_H
 #include<iostream>
-#include<set>
+#include<vector>
 #include "Athlete.h"
 #include "Competitor.h"
 
+using namespace std;
+
 class Team: public Competitor {
 private:
-    set<Athlete> athlets;
+    std::vector<Athlete*> athletes;
 
 public:
     Team(Medal m, Event ev): Competitor(m, ev){}
