@@ -3,3 +3,7 @@
 //
 
 #include "Event.h"
+
+bool Event::operator==(const Event e) {
+    return e.name == name && e.evType == evType;
+}

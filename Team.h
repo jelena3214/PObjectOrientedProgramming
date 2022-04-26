@@ -16,7 +16,7 @@ private:
     std::vector<Athlete*> athletes;
 
 public:
-    Team(Medal m, Event ev): Competitor(m, ev){}
+    Team(){}
 };
 
 

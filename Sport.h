@@ -16,6 +16,9 @@ class Sport {
 public:
     Sport(const string& n):name(n){}
     void addEvent(Event* e);
+    string getName()const{return name;}
+    bool containsEvent(Event& e);
+    Event* getEvent(const string& name, EventType ev);
 };
 
 

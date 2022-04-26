@@ -5,19 +5,21 @@
 #ifndef POOP_COMPETITOR_H
 #define POOP_COMPETITOR_H
 #include "Event.h"
-#include "Medal.h"
+#include "MedalType.h"
+//#include "Medal.h"
+
 
 class Competitor {
-    Medal medal;
+protected:
+    MedalType medal;
     Event* event;
-int l;
 public:
-    Competitor(Medal m, Event ev){
-        medal = m;
-        event = &ev;
-    }
+    Competitor(){}
 
-    virtual ~Competitor() = 0;
+    void setMedal(MedalType m){medal = m;}
+    void setEvent(Event* e){event = e;}
+
+
 
 };
 

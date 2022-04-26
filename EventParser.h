@@ -8,9 +8,18 @@
 #include<fstream>
 #include<iostream>
 #include<string>
+#include "Competitor.h"
+#include "Sport.h"
+#include "Games.h"
+#include "Country.h"
+#include "Athlete.h"
+#include <set>
 using namespace std;
 
-void eventParsing(const char* fileName);
-
-
+void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sport*>& sports,
+        set<Games*>& games, set<Country*>& countries, vector<Athlete*>& athletes);
+Games* insertGame(const string& game, set<Games*>& games);
+template<typename T>
+T* insertT(const string& name, set<T*>& insertSet);
+Event* insertEventToSport(const string& event, const string& type,const string& sport,set<Sport*> sports);
 #endif //POOP_EVENTPARSER_H

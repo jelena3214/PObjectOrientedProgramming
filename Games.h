@@ -10,14 +10,17 @@
 using namespace std;
 
 class Games {
-    string name;
+    string season;
     int year;
     string city;
     vector<Competitor*> competitors;
 
 public:
-    Games(string n, int y, string c): name(n), year(y), city(c){}
+    Games(string s, int y, string c): season(s), year(y), city(c){}
     void addCompetitor(Competitor* c);
+    string getName() const{return season;}
+    string getCity()const {return city;}
+    int getYear()const {return year;}
 };
 
 
