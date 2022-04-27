@@ -3,3 +3,7 @@
 //
 
 #include "Team.h"
+
+void Team::addAthlete(Athlete *athlete) {
+    athletes.push_back(athlete);
+}

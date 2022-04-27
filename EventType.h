@@ -5,6 +5,6 @@
 #ifndef POOP_EVENTTYPE_H
 #define POOP_EVENTTYPE_H
 
-enum EventType{Team, Individual};
+enum EventType{TEAM, INDIVIDUAL};
 
 #endif //POOP_EVENTTYPE_H

@@ -17,7 +17,7 @@ public:
     Event(const string& n, EventType evt): name(n), evType(evt){}
     string getName()const{return name;}
     EventType getType()const{return evType;}
-    bool operator==(const Event e);
+    bool operator==(const Event& e)const;
 };
 
 

@@ -31,11 +31,26 @@ void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sp
             insertGame(games, gamesSet);
             insertT<Country>(country, countrySet);
             insertT<Sport>(sport, sports);
-            Event* competitorEvent = insertEventToSport(event, type, sport, sports);
+            Event* competitorEvent = insertEventToSport(event, type, sport, sports); //returns event pointer for competitor
 
             Competitor* newCompetitor = nullptr;
             if(ids[0] == '['){ //Team
-                //team
+                Team* newTeam = new Team();
+                ids = ids.substr(1, ids.size() - 2);
+                int n = ids.length();
+                char* char_array = new char[n + 1];
+                strcpy(char_array, ids.c_str());
+                char* res = strtok(char_array, " ,");
+                while(res != nullptr){
+                    string tmp = res;
+                    tmp = tmp.substr(1, tmp.size() - 2);
+                    int playerId = stoi(tmp);
+                    //find player
+                    Athlete* foundAthlete = findAthlete(athletes, playerId);
+                    if(foundAthlete) newTeam->addAthlete(foundAthlete);
+                    res = strtok (NULL, " ,");
+                }
+                newCompetitor = newTeam;
             }else{ //Athlete
                 for (auto it = athletes.begin(); it != athletes.end(); ++it){
                     if((*it)->getId() == stoi(ids)){
@@ -45,25 +60,19 @@ void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sp
 
             }
             MedalType m;
-            if(medal == "GOLD"){
+            if(medal == "Gold"){
                 m = GOLD;
-            }else if(medal == "SILVER"){
+            }else if(medal == "Silver"){
                 m = SILVER;
-            }else if(medal == "BRONZE"){
+            }else if(medal == "Bronze"){
                 m = BRONZE;
             }else{
                 m = NA;
             }
 
-
             newCompetitor->setEvent(competitorEvent);
             newCompetitor->setMedal(m);
             competitors.push_back(newCompetitor);
-            //List of athlets, and if competitor is a athlete we just add that single athlete to the vector
-            //if competitor is a Team we find all athlets and add them to the team
-            //then we add Medal, pointer to the event
-            //then we add competitors to the country and games collection
-            //game country can return pointer to them so we can add competitors
 
         }else{
             cout<< "Not found"<< endl;
@@ -108,8 +117,8 @@ Event* insertEventToSport(const string& event, const string& type,const string& 
     //RETURNS EVENT FOR CONTESTANTS
     bool insert = true;
     EventType e;
-    if(type == "Individual") e = Individual;
-    else e = Team;
+    if(type == "Individual") e = INDIVIDUAL;
+    else e = TEAM;
     Event tmpEvent = Event(event, e);
 
     Sport* tmpSport = nullptr;
@@ -127,4 +136,13 @@ Event* insertEventToSport(const string& event, const string& type,const string& 
         return insert;
     }
 
+}
+
+Athlete* findAthlete(vector<Athlete*> athletes, int id) {
+    for (auto it = athletes.begin(); it != athletes.end(); ++it){
+        if((*it)->getId() == id) {
+            return (*it);
+        }
+    }
+    return nullptr;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <set>
+#include <cstring>
 #include "EventParser.h"
 #include "AthletesParsing.h"
 #include "Competitor.h"
@@ -15,13 +16,20 @@ int main() {
     set<Country*> countries;
     vector<Athlete*> athletes;
 
-    athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\ath.txt", athletes);
+    athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt", athletes);
 
     eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", competitors, sports, games, countries, athletes);
 
     cout << "----" << endl;
-    for (auto it = countries.begin(); it != countries.end(); ++it){
-        cout << *(*it) << endl;
+    for (auto it = competitors.begin(); it != competitors.end(); ++it){
+        if((*it)->getEvent()->getType() == INDIVIDUAL){
+            cout << "INDIVIDUAL" << endl;
+        }
+        else{
+            cout << "Team" << endl;
+            Team* t = dynamic_cast<Team*>(*it);
+            cout << " " << endl;
+        }
     }
 
 

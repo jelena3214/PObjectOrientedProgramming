@@ -17,6 +17,10 @@ private:
 
 public:
     Team(){}
+    void addAthlete(Athlete* athlete);
+    void type() override{
+        //
+    }
 };
 
 

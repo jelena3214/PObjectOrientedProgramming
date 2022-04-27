@@ -13,6 +13,7 @@
 #include "Games.h"
 #include "Country.h"
 #include "Athlete.h"
+#include "Team.h"
 #include <set>
 using namespace std;
 
@@ -22,4 +23,5 @@ Games* insertGame(const string& game, set<Games*>& games);
 template<typename T>
 T* insertT(const string& name, set<T*>& insertSet);
 Event* insertEventToSport(const string& event, const string& type,const string& sport,set<Sport*> sports);
+Athlete* findAthlete(vector<Athlete*> athletes, int id);
 #endif //POOP_EVENTPARSER_H
