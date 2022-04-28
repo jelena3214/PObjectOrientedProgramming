@@ -5,12 +5,13 @@
 #ifndef POOP_ATHLETESPARSING_H
 #define POOP_ATHLETESPARSING_H
 
-#include <vector>
+#include <set>
 #include "Athlete.h"
+#include "People.h"
 #include<fstream>
 #include <regex>
 
-void athletesParse(const char* fileName, vector<Athlete*>& athletes);
+void athletesParse(const char* fileName, set<int>& athletes, People& ppl);
 
 
 #endif //POOP_ATHLETESPARSING_H

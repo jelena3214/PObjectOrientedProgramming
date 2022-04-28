@@ -4,7 +4,7 @@
 
 #include "AthletesParsing.h"
 
-void athletesParse(const char* fileName, vector<Athlete*>& athletes){
+void athletesParse(const char* fileName, set<int>& athletes, People& people){
     fstream eventFile;
     eventFile.open(fileName, ios::in);
     // TODO if(!eventFile) throw Greska;
@@ -17,6 +17,7 @@ void athletesParse(const char* fileName, vector<Athlete*>& athletes){
     while(getline(eventFile, tmp)){
         if (regex_search(tmp, match, re) == true) {
             string id = match.str(1);
+            if(athletes.find(stoi(id)) == athletes.end()) continue;
             string name = match.str(2);
             string gender = match.str(3);
             string yearsOld = match.str(4);
@@ -25,7 +26,7 @@ void athletesParse(const char* fileName, vector<Athlete*>& athletes){
             if(height == "NA")height = "0";
             string weight = match.str(6);
             if(weight == "NA")weight = "0";
-            athletes.push_back(new Athlete(stoi(id)));
+            people.addPerson(new Person(stoi(id), stoi(yearsOld), stoi(height), stoi(weight), name, gender));
             cout << i++ << endl;
         }else{
             cout<< "Not found"<< endl;

@@ -3,3 +3,5 @@
 //
 
 #include "People.h"
+
+People* People::instance = nullptr;

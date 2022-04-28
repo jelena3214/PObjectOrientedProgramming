@@ -6,22 +6,29 @@
 #define POOP_PEOPLE_H
 #include <map>
 #include "Person.h"
+//Postoji samo jedna instanca People koja zadrzi sve potrebne ucesnike za taj filter
+//Na kraju programa se to dealocira
+//A dok u Athlete i Team cuvamo samo id/jeve koji im trebaju
+//Ubaci indekciranje i vracanje potrebnog coveka iz mape
 using namespace std;
 
 class People {
-    map<int, Person*> lines;
+    map<int, Person*> athletes;
 
-    static JGP* instance;
-    JGP() {}
+    static People* instance;
+    People() {}
 public:
-    static JGP& getInstance() {
+    static People& getInstance() {
         if (instance == nullptr) {
-            instance = new JGP();
+            instance = new People();
         }
         return *instance;
     }
-    static void deleteInstance();
+    //static void deleteInstance();
 
+    void addPerson(Person * p){
+        athletes[p->getId()] = p;
+    }
 
 };
 
