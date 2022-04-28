@@ -19,8 +19,8 @@ public:
     void setMedal(MedalType m){medal = m;}
     void setEvent(Event* e){event = e;}
     Event* getEvent()const {return event;}
-    virtual void type(){
-        //
+    virtual string type(){
+        return "c";
     }
 
 

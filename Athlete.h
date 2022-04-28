@@ -22,8 +22,8 @@ public:
     //COPY CONSTRUCTOR?
     int getId()const {return id;}
     friend bool operator==(const Athlete& a1, const Athlete& a2);
-    void type() override{
-        //
+    string type() override{
+        return "a";
     }
 };
 

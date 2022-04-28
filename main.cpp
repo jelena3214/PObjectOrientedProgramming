@@ -22,7 +22,7 @@ int main() {
 
     cout << "----" << endl;
     for (auto it = competitors.begin(); it != competitors.end(); ++it){
-        if((*it)->getEvent()->getType() == INDIVIDUAL){
+        if((*it)->type() == "a"){
             cout << "INDIVIDUAL" << endl;
         }
         else{
