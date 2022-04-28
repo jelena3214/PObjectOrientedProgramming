@@ -5,19 +5,18 @@
 #ifndef POOP_TEAM_H
 #define POOP_TEAM_H
 #include<iostream>
-#include<vector>
-#include "Athlete.h"
+#include <set>
 #include "Competitor.h"
 
 using namespace std;
 
 class Team: public Competitor {
 private:
-    std::vector<Athlete*> athletes;
+    set<int> athleteIds;
 
 public:
     Team(){}
-    void addAthlete(Athlete* athlete);
+    void addAthlete(int athlete);
     string type() override{
         return "t";
     }

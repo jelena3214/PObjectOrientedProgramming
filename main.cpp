@@ -14,11 +14,11 @@ int main() {
     set<Sport*> sports;
     set<Games*> games;
     set<Country*> countries;
-    vector<Athlete*> athletes;
+    set<int> athletesId;
 
-    athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt", athletes);
+    //athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt", athletes);
 
-    eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", competitors, sports, games, countries, athletes);
+    eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", competitors, sports, games, countries, athletesId);
 
     cout << "----" << endl;
     for (auto it = competitors.begin(); it != competitors.end(); ++it){
@@ -31,8 +31,6 @@ int main() {
             cout << " " << endl;
         }
     }
-
-
 
     return 0;
 }

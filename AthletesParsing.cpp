@@ -25,7 +25,7 @@ void athletesParse(const char* fileName, vector<Athlete*>& athletes){
             if(height == "NA")height = "0";
             string weight = match.str(6);
             if(weight == "NA")weight = "0";
-            athletes.push_back(new Athlete(stoi(id), name, gender, stoi(yearsOld), stoi(height), stoi(weight)));
+            athletes.push_back(new Athlete(stoi(id)));
             cout << i++ << endl;
         }else{
             cout<< "Not found"<< endl;

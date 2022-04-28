@@ -6,7 +6,7 @@
 #include<regex>
 
 void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sport*>& sports,
-                  set<Games*>& gamesSet, set<Country*>& countrySet, vector<Athlete*>& athletes){
+                  set<Games*>& gamesSet, set<Country*>& countrySet, set<int>& athletesId){
     fstream eventFile;
     eventFile.open(fileName, ios::in);
     // TODO if(!eventFile) throw Greska;
@@ -45,18 +45,15 @@ void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sp
                     string tmp = res;
                     tmp = tmp.substr(1, tmp.size() - 2);
                     int playerId = stoi(tmp);
-                    //find player
-                    Athlete* foundAthlete = findAthlete(athletes, playerId);
-                    if(foundAthlete) newTeam->addAthlete(foundAthlete);
+                    newTeam->addAthlete(playerId);
+                    athletesId.insert(playerId);
                     res = strtok (NULL, " ,");
                 }
                 newCompetitor = newTeam;
             }else{ //Athlete
-                for (auto it = athletes.begin(); it != athletes.end(); ++it){
-                    if((*it)->getId() == stoi(ids)){
-                        newCompetitor = (*it);
-                    }
-                }
+                Athlete* newAthlete = new Athlete(stoi(ids));
+                athletesId.insert(stoi(ids));
+                newCompetitor = newAthlete;
 
             }
             MedalType m;
@@ -115,7 +112,6 @@ T* insertT(const string& name, set<T*>& insertSet){
 
 Event* insertEventToSport(const string& event, const string& type,const string& sport, set<Sport*> sports){
     //RETURNS EVENT FOR CONTESTANTS
-    bool insert = true;
     EventType e;
     if(type == "Individual") e = INDIVIDUAL;
     else e = TEAM;

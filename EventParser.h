@@ -18,10 +18,11 @@
 using namespace std;
 
 void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sport*>& sports,
-        set<Games*>& games, set<Country*>& countries, vector<Athlete*>& athletes);
+        set<Games*>& games, set<Country*>& countries, set<int>& athletesId);
 Games* insertGame(const string& game, set<Games*>& games);
 template<typename T>
 T* insertT(const string& name, set<T*>& insertSet);
 Event* insertEventToSport(const string& event, const string& type,const string& sport,set<Sport*> sports);
 Athlete* findAthlete(vector<Athlete*> athletes, int id);
+
 #endif //POOP_EVENTPARSER_H

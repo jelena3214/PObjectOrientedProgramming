@@ -4,6 +4,6 @@
 
 #include "Team.h"
 
-void Team::addAthlete(Athlete *athlete) {
-    athletes.push_back(athlete);
+void Team::addAthlete(int athlete) {
+    athleteIds.insert(athlete);
 }

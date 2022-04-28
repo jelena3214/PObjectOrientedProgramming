@@ -12,12 +12,10 @@ using namespace std;
 
 class Athlete: public Competitor {
 private:
-    int id, height, weight, years;
-    string name, gender;
+    int id;
     //DO WE NEED TEAM POINTER? THEY CAN BELONG TO TEAM IN ONE GAME AND THEN NOT
 public:
-    Athlete(int idd, const string &n, const string& g, int y, int h, int w):id(idd), name(n), gender(g), years(y),
-    height(h), weight(w){}
+    Athlete(int idd):id(idd) {}
     //TO DO
     //COPY CONSTRUCTOR?
     int getId()const {return id;}
