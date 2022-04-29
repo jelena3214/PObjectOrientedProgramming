@@ -63,7 +63,7 @@ build CMakeFiles\POOP.dir\Competitor.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users
   TARGET_COMPILE_PDB = CMakeFiles\POOP.dir\
   TARGET_PDB = POOP.pdb
 
-build CMakeFiles\POOP.dir\Games.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users\Lenovo\CLionProjects\POOP\Games.cpp || cmake_object_order_depends_target_POOP
+build CMakeFiles\POOP.dir\Game.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users\Lenovo\CLionProjects\POOP\Game.cpp || cmake_object_order_depends_target_POOP
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   OBJECT_DIR = CMakeFiles\POOP.dir
   OBJECT_FILE_DIR = CMakeFiles\POOP.dir
@@ -112,7 +112,7 @@ build CMakeFiles\POOP.dir\EventParser.cpp.obj: CXX_COMPILER__POOP_Debug C$:\User
   TARGET_COMPILE_PDB = CMakeFiles\POOP.dir\
   TARGET_PDB = POOP.pdb
 
-build CMakeFiles\POOP.dir\AthletesParsing.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users\Lenovo\CLionProjects\POOP\AthletesParsing.cpp || cmake_object_order_depends_target_POOP
+build CMakeFiles\POOP.dir\AthletesParser.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users\Lenovo\CLionProjects\POOP\AthletesParser.cpp || cmake_object_order_depends_target_POOP
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   OBJECT_DIR = CMakeFiles\POOP.dir
   OBJECT_FILE_DIR = CMakeFiles\POOP.dir
@@ -141,7 +141,7 @@ build CMakeFiles\POOP.dir\Person.cpp.obj: CXX_COMPILER__POOP_Debug C$:\Users\Len
 #############################################
 # Link the executable POOP.exe
 
-build POOP.exe: CXX_EXECUTABLE_LINKER__POOP_Debug CMakeFiles\POOP.dir\main.cpp.obj CMakeFiles\POOP.dir\Competitor.cpp.obj CMakeFiles\POOP.dir\Games.cpp.obj CMakeFiles\POOP.dir\Athlete.cpp.obj CMakeFiles\POOP.dir\Team.cpp.obj CMakeFiles\POOP.dir\Event.cpp.obj CMakeFiles\POOP.dir\Country.cpp.obj CMakeFiles\POOP.dir\Sport.cpp.obj CMakeFiles\POOP.dir\EventParser.cpp.obj CMakeFiles\POOP.dir\AthletesParsing.cpp.obj CMakeFiles\POOP.dir\People.cpp.obj CMakeFiles\POOP.dir\Person.cpp.obj
+build POOP.exe: CXX_EXECUTABLE_LINKER__POOP_Debug CMakeFiles\POOP.dir\main.cpp.obj CMakeFiles\POOP.dir\Competitor.cpp.obj CMakeFiles\POOP.dir\Game.cpp.obj CMakeFiles\POOP.dir\Athlete.cpp.obj CMakeFiles\POOP.dir\Team.cpp.obj CMakeFiles\POOP.dir\Event.cpp.obj CMakeFiles\POOP.dir\Country.cpp.obj CMakeFiles\POOP.dir\Sport.cpp.obj CMakeFiles\POOP.dir\EventParser.cpp.obj CMakeFiles\POOP.dir\AthletesParser.cpp.obj CMakeFiles\POOP.dir\People.cpp.obj CMakeFiles\POOP.dir\Person.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:X86 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

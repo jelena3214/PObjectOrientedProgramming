@@ -4,25 +4,14 @@
 
 #include "Sport.h"
 
-void Sport::addEvent(Event *e) {
-    if(e)events.push_back(e);
+shared_ptr<Event> Sport::addEvent(const Event& e) const{
+    auto it = events.insert(make_shared<Event>(e));
+    return *it.first;
+}
+bool Sport::operator==(const Sport& s) const {
+    return name == s.name;
 }
 
-bool Sport::containsEvent(Event& e) {
-    for (auto it = events.begin(); it != events.end(); ++it){
-        if(*(*it) == e){
-            return true;
-        }
-    }
-    return false;
-}
-
-Event *Sport::getEvent(const string& name, EventType ev) {
-    Event e = Event(name, ev);
-    for (auto it = events.begin(); it != events.end(); ++it){
-        if(*(*it) == e){
-            return (*it);
-        }
-    }
-    return nullptr;
+bool Sport::operator<(const Sport& s) const{
+    return name < s.name;
 }

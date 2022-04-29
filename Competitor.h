@@ -5,20 +5,24 @@
 #ifndef POOP_COMPETITOR_H
 #define POOP_COMPETITOR_H
 #include "Event.h"
-#include "MedalType.h"
+#include "MedalTypeClass.h"
+#include <memory>
 //#include "Medal.h"
+using namespace std;
 
+class Country;
+class Game;
 
 class Competitor {
 protected:
     MedalType medal;
-    Event* event;
+    shared_ptr<Event> event;
+    Country* country;
+    Game* game;
 public:
-    Competitor(){}
-
     void setMedal(MedalType m){medal = m;}
-    void setEvent(Event* e){event = e;}
-    Event* getEvent()const {return event;}
+    void setEvent(shared_ptr<Event> e){event = e;}
+    shared_ptr<Event> getEvent()const {return event;}
     virtual string type(){
         return "c";
     }

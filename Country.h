@@ -18,7 +18,8 @@ public:
     Country(const Country& c);
     void addCompetitor(Competitor* c);
     string getName(){return name;}
-    bool operator==(Country c);
+    bool operator==(const Country& c);
+    bool operator<(const Country& c)const;
     friend ostream & operator << (ostream &, const Country &c);
 };
 

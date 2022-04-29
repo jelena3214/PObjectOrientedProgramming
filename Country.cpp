@@ -8,7 +8,7 @@ void Country::addCompetitor(Competitor* c) {
     if(c)competitors.push_back(c);
 }
 
-bool Country::operator==(Country c) {
+bool Country::operator==(const Country& c) {
     return name == c.name;
 }
 
@@ -18,4 +18,8 @@ Country::Country(const Country &c) {
 
 ostream &operator<<(ostream &os, const Country &c) {
     return os << c.name;
+}
+
+bool Country::operator<(const Country &c) const {
+    return name < c.name;
 }

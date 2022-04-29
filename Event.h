@@ -4,7 +4,7 @@
 
 #ifndef POOP_EVENT_H
 #define POOP_EVENT_H
-#include "EventType.h"
+#include "EventTypeClass.h"
 #include<string>
 using namespace std;
 
@@ -18,6 +18,7 @@ public:
     string getName()const{return name;}
     EventType getType()const{return evType;}
     bool operator==(const Event& e)const;
+
 };
 
 

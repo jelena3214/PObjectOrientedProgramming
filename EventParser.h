@@ -10,19 +10,33 @@
 #include<string>
 #include "Competitor.h"
 #include "Sport.h"
-#include "Games.h"
+#include "Game.h"
 #include "Country.h"
 #include "Athlete.h"
 #include "Team.h"
 #include <set>
+
 using namespace std;
 
-void eventParsing(const char* fileName, vector<Competitor*>& competitors, set<Sport*>& sports,
-        set<Games*>& games, set<Country*>& countries, set<int>& athletesId);
-Games* insertGame(const string& game, set<Games*>& games);
-template<typename T>
-T* insertT(const string& name, set<T*>& insertSet);
-Event* insertEventToSport(const string& event, const string& type,const string& sport,set<Sport*> sports);
-Athlete* findAthlete(vector<Athlete*> athletes, int id);
+class EventParser{
+private:
+    vector<shared_ptr<Competitor>> competitors;
+    set<Sport> sports;
+    set<Game> gamesSet;
+    set<Country> countrySet;
+    set<int> athletesId;
+
+    shared_ptr<Event> insertEventToSport(const string& event, const string& type,const string& sport);
+public:
+    void eventParsing(const char* fileName, int year = -1);
+    vector<shared_ptr<Competitor>>& getCompetitors() {return competitors;}
+    set<Sport>& getSports(){return sports;}
+    set<Game>& getGames(){return gamesSet;}
+    set<Country>& getCountries(){return countrySet;}
+    set<int>& getAthleteIds(){return athletesId;}
+};
+
+
+
 
 #endif //POOP_EVENTPARSER_H

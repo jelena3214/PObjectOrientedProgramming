@@ -6,6 +6,7 @@
 #define POOP_PEOPLE_H
 #include <map>
 #include "Person.h"
+#include<memory>
 //Postoji samo jedna instanca People koja zadrzi sve potrebne ucesnike za taj filter
 //Na kraju programa se to dealocira
 //A dok u Athlete i Team cuvamo samo id/jeve koji im trebaju
@@ -13,7 +14,7 @@
 using namespace std;
 
 class People {
-    map<int, Person*> athletes;
+    map<int, shared_ptr<Person>> athletes;
 
     static People* instance;
     People() {}
@@ -26,7 +27,7 @@ public:
     }
     //static void deleteInstance();
 
-    void addPerson(Person * p){
+    void addPerson(shared_ptr<Person> p){
         athletes[p->getId()] = p;
     }
 

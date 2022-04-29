@@ -13,7 +13,7 @@ using namespace std;
 class Athlete: public Competitor {
 private:
     int id;
-    //DO WE NEED TEAM POINTER? THEY CAN BELONG TO TEAM IN ONE GAME AND THEN NOT
+
 public:
     Athlete(int idd):id(idd) {}
     //TO DO
