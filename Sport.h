@@ -8,6 +8,7 @@
 #include<set>
 #include<memory>
 #include "Event.h"
+
 using namespace std;
 
 class Sport {
@@ -23,6 +24,7 @@ class Sport {
 
 public:
     Sport(const string& n):name(n){}
+    Sport(){}
     shared_ptr<Event> addEvent(const Event& e) const;
     string getName()const{return name;}
     bool operator==(const Sport& s) const;

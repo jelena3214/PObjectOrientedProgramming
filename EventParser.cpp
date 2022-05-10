@@ -76,6 +76,9 @@ void EventParser::eventParsing(const char* fileName, int findForYear){
             MedalType m = MedalTypeClass::getMedalTypeFromString(medal);
             newCompetitor->setEvent(competitorEvent);
             newCompetitor->setMedal(m);
+            auto& tmpCounty = const_cast<Country&>(*countrySet.find(Country(country)));
+            newCompetitor->setCountry(tmpCounty);
+            tmpCounty.addCompetitor(newCompetitor);
             competitors.push_back(newCompetitor);
 
         }else{
@@ -94,7 +97,7 @@ shared_ptr<Event> EventParser::insertEventToSport(const string& event, const str
     auto it = sports.find(tmpSport);
 
     //if(it == sports.end())//TODO GRESKA
-
+    tmpEvent.setSport(const_cast<Sport&>((*it)));
     return  (*it).addEvent(tmpEvent);
 }
 

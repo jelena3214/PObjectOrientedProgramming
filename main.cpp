@@ -6,12 +6,16 @@
 #include "Game.h"
 #include "Country.h"
 #include "People.h"
+#include "DataManipulation.h"
+
+//TODO finish filter methods, resolve todo isues in those files and finish filters
+//TODO consult
 
 int main() {
     People athletes = People::getInstance();
     // TODO sredi kod + destruktori???, SHARED POINTER
     EventParser evParser;
-    evParser.eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", 2012);
+    evParser.eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", 2004);
     auto competitors = evParser.getCompetitors();
     auto sports = evParser.getSports();
     auto games = evParser.getGames();

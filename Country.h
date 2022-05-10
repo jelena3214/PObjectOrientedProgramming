@@ -12,11 +12,11 @@ using namespace std;
 
 class Country {
     string name;
-    vector<Competitor*> competitors;
+    vector<shared_ptr<Competitor>> competitors;
 public:
     Country(const string& n): name(n){}
     Country(const Country& c);
-    void addCompetitor(Competitor* c);
+    void addCompetitor(shared_ptr<Competitor> c);
     string getName(){return name;}
     bool operator==(const Country& c);
     bool operator<(const Country& c)const;
