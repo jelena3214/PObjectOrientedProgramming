@@ -8,38 +8,43 @@
 #include <algorithm>
 #include <vector>
 #include "Filter.h"
-#include "Competitor.h"
-#include "Sport.h"
-#include "People.h"
-#include "Game.h"
-#include "Country.h"
+#include "EventParser.h"
+#include "AthletesParser.h"
 
 using namespace std;
 
 class DataManipulation {
 private:
-    vector<shared_ptr<Competitor>> competitors;
-    set<Sport> sports;
-    set<Game> games;
-    set<Country> countries;
+    EventParser* evParser;
     People* athletes;
 public:
-    //TODO constructor neki drugi nacin? ower of a parser??
-    DataManipulation(vector<shared_ptr<Competitor>>& competitors, set<Sport>& sports, set<Game>& games,
-                     set<Country>& countries, People* ath){
-        this->competitors.insert(this->competitors.begin(), competitors.begin(), competitors.end());
-        this->sports.insert(sports.begin(), sports.end());
-        this->games.insert(games.begin(), games.end());
-        this->countries.insert(countries.begin(), countries.end());
+
+    DataManipulation(EventParser* ev, People* ath){
+        evParser = ev;
         athletes = ath;
     }
 
-
+    /**
+     * Basic filtering options
+     */
     int numberOfPlayers(Filter f);
     int numOfDisciplines(Filter f);
     double averageAthletesHeight(Filter f);
     double averageAthletesWeight(Filter f);
     vector<shared_ptr<Competitor>> getFilteredCompetitors(Filter f);
+
+    /**
+     * Advanced data operations
+     */
+     int numberOfDifferentSportsWithMedal(const string& country);
+     set<Country> bestCountriesAtGame(int year, const string& season);
+     set<Country> bestCountries();
+     set<shared_ptr<Competitor>> bestYoungestAthletes();
+     pair<Country, Person> wonIndividualAndTeamMedal();
+     set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
+     set<shared_ptr<Team>> countryTeamsAtGame(int year, const string& season);
+     set<string> olympicCities();
+
 };
 
 

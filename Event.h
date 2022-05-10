@@ -28,7 +28,10 @@ public:
 
     struct EventPrtComp{ //for comparing pointers in set of Event*
         bool operator()(shared_ptr<Event>e, shared_ptr<Event>e1) const{
-            return e->getName() <= e1->getName() && e->getType() < e1->getType();
+            if(e->getName() < e1->getName())return true;
+            if(e->getName() > e1->getName())return false;
+            if(e->getType() > e1->getType())return true;
+            return false;
         }
     };
 

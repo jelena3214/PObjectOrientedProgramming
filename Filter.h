@@ -36,7 +36,6 @@ public:
     vector<shared_ptr<Competitor>> medalTypeFiltering(vector<shared_ptr<Competitor>> competitors);
 
     bool isSetYear()const{return year!=0;}
-    //bool isSetCountry()const{return country!="";}
 };
 
 

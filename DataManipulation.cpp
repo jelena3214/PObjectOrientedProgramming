@@ -3,7 +3,7 @@
 //
 
 #include "DataManipulation.h"
-
+//TODO ucesnici kao br competitora ili kao svi ljudi sportisti?
 int DataManipulation::numberOfPlayers(Filter f) {
     auto res = getFilteredCompetitors(f);
     return res.size();
@@ -20,9 +20,9 @@ int DataManipulation::numOfDisciplines(Filter f) {
 }
 
 vector<shared_ptr<Competitor>> DataManipulation::getFilteredCompetitors(Filter f) {
-    auto res = competitors;
+    auto res = evParser->getCompetitors();
     if(f.isSetYear()){
-        res = f.yearFiltering(games);
+        res = f.yearFiltering(*evParser->getGames());
     }
     res = f.sportFiltering(res);
     res = f.countryFiltering(res);
@@ -38,17 +38,24 @@ double DataManipulation::averageAthletesHeight(Filter f) {
     for(shared_ptr<Competitor> cmp: res){
         if(cmp->getId()->size() == 1){
             int tmpId = *cmp->getId()->begin();
-            averageHeight += athletes->getPerson(tmpId)->getHeight();
-            numOfAthletes++;
+            int height = athletes->getPerson(tmpId)->getHeight();
+            if(height) {
+                averageHeight += height;
+                numOfAthletes++;
+            }
             delete cmp->getId();
         }else{
             for(int i : *cmp->getId()){
-                averageHeight += athletes->getPerson(i)->getHeight();
-                numOfAthletes++;
+                int height = athletes->getPerson(i)->getHeight();
+                if(height)
+                {
+                    averageHeight += height;
+                    numOfAthletes++;
+                }
             }
         }
     }
-
+    if(!averageHeight)return 0;
     return averageHeight/numOfAthletes;
 
 }
@@ -60,16 +67,22 @@ double DataManipulation::averageAthletesWeight(Filter f) {
     for(shared_ptr<Competitor> cmp: res){
         if(cmp->getId()->size() == 1){
             int tmpId = *cmp->getId()->begin();
-            averageWeight += athletes->getPerson(tmpId)->getWeight();
-            numOfAthletes++;
+            int weight = athletes->getPerson(tmpId)->getWeight();
+            if(weight) {
+                averageWeight += weight;
+                numOfAthletes++;
+            }
             delete cmp->getId();
         }else{
             for(int i : *cmp->getId()){
-                averageWeight += athletes->getPerson(i)->getWeight();
-                numOfAthletes++;
+                int weight = athletes->getPerson(i)->getWeight();
+                if(weight) {
+                    averageWeight += weight;
+                    numOfAthletes++;
+                }
             }
         }
     }
-
+    if(!averageWeight)return 0;
     return averageWeight/numOfAthletes;
 }

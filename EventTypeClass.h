@@ -19,6 +19,7 @@ public:
         if(s == "Individual") return INDIVIDUAL;
         return TEAM;
     }
+
 };
 
 using EventType = EventTypeClass::EventType;
