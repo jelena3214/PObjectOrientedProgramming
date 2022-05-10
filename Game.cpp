@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-void Game::addCompetitor(Competitor* c) {
+void Game::addCompetitor(shared_ptr<Competitor> c) {
     if(c != nullptr){
         competitors.push_back(c);
     }
@@ -17,5 +17,10 @@ bool Game::operator==(const Game &g) {
 bool Game::operator<(const Game &g)const {
     return season < g.season && city < g.city && year < g.year;
 }
+
+vector<shared_ptr<Competitor>> *Game::getCompetitors() {
+    return &competitors;
+}
+
 
 

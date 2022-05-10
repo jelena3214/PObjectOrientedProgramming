@@ -15,6 +15,8 @@ public:
     Person(int idd, int year, int h, int w, const string& n, const string& g):id(idd), yearsOld(year), gender(g),
         name(n), height(h), weight(w){}
     int getId()const{return id;}
+    double getHeight()const{return height;}
+    double getWeight()const{return weight;}
 };
 
 

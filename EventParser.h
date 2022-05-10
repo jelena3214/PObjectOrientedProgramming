@@ -31,7 +31,7 @@ public:
     void eventParsing(const char* fileName, int year = -1);
     vector<shared_ptr<Competitor>>& getCompetitors() {return competitors;}
     set<Sport>& getSports(){return sports;}
-    set<Game>& getGames(){return gamesSet;}
+    set<Game>* getGames(){return &gamesSet;}
     set<Country>* getCountries(){return &countrySet;}
     set<int>& getAthleteIds(){return athletesId;}
 };

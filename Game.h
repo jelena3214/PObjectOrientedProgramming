@@ -13,11 +13,13 @@ class Game {
     string season;
     int year;
     string city;
-    vector<Competitor*> competitors;
+    vector<shared_ptr<Competitor>> competitors;
 
 public:
     Game(string s, int y, string c): season(s), year(y), city(c){}
-    void addCompetitor(Competitor* c);
+    void addCompetitor(shared_ptr<Competitor> c);
+    vector<shared_ptr<Competitor>>* getCompetitors();
+    int numberOfCompetitors()const{return competitors.size();}
     string getName() const{return season;}
     string getCity()const {return city;}
     bool operator<(const Game& g)const;

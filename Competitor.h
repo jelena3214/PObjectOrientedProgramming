@@ -7,6 +7,8 @@
 #include "Event.h"
 #include "MedalTypeClass.h"
 #include <memory>
+#include <set>
+
 using namespace std;
 
 class Country;
@@ -20,10 +22,11 @@ public:
     void setMedal(MedalType m){medal = m;}
     void setEvent(shared_ptr<Event> e){event = e;}
     shared_ptr<Event> getEvent()const {return event;}
+    MedalType getMedal()const{return medal;}
     void setCountry(Country& c){country = &c;}
     Country* getCountry()const{return country;}
-    virtual string type(){
-        return "c";
+    virtual set<int>* getId(){
+        return nullptr;
     }
 
 

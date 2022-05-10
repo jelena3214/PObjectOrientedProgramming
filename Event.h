@@ -6,6 +6,8 @@
 #define POOP_EVENT_H
 #include "EventTypeClass.h"
 #include<string>
+#include <memory>
+
 using namespace std;
 class Sport;
 
@@ -23,6 +25,12 @@ public:
     EventType getType()const{return evType;}
     Sport* getSport()const;
     bool operator==(const Event& e)const;
+
+    struct EventPrtComp{ //for comparing pointers in set of Event*
+        bool operator()(shared_ptr<Event>e, shared_ptr<Event>e1) const{
+            return e->getName() <= e1->getName() && e->getType() < e1->getType();
+        }
+    };
 
 };
 

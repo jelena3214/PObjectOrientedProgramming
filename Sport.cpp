@@ -4,9 +4,8 @@
 
 #include "Sport.h"
 
-shared_ptr<Event> Sport::addEvent(const Event& e) const{
-    auto it = events.insert(make_shared<Event>(e));
-    return *it.first;
+void Sport::addEvent(shared_ptr<Event> e) const{
+    events.insert(e);
 }
 bool Sport::operator==(const Sport& s) const {
     return name == s.name;

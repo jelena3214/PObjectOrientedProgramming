@@ -12,6 +12,7 @@
 #include "Sport.h"
 #include "People.h"
 #include "Game.h"
+#include "Country.h"
 
 using namespace std;
 
@@ -21,23 +22,24 @@ private:
     set<Sport> sports;
     set<Game> games;
     set<Country> countries;
-    People athletes = People::getInstance();
+    People* athletes;
 public:
-
-    void setC(set<Country>&c){}
-    //TODO constructor
-    /*DataManipulation(vector<shared_ptr<Competitor>>& competitors, set<Sport> sports, set<Game> games,
-                     set<Country> countries){
+    //TODO constructor neki drugi nacin? ower of a parser??
+    DataManipulation(vector<shared_ptr<Competitor>>& competitors, set<Sport>& sports, set<Game>& games,
+                     set<Country>& countries, People* ath){
         this->competitors.insert(this->competitors.begin(), competitors.begin(), competitors.end());
         this->sports.insert(sports.begin(), sports.end());
         this->games.insert(games.begin(), games.end());
-        this->countries.insert(games.begin(), games.end());
-    }*/
+        this->countries.insert(countries.begin(), countries.end());
+        athletes = ath;
+    }
 
-    int numberOfPlayers(const Filter& f);
-    int numOfDisciplines(const Filter& f);
-    double averageAthletesHeight(const Filter& f);
-    double averageAthletesWeight(const Filter& f);
+
+    int numberOfPlayers(Filter f);
+    int numOfDisciplines(Filter f);
+    double averageAthletesHeight(Filter f);
+    double averageAthletesWeight(Filter f);
+    vector<shared_ptr<Competitor>> getFilteredCompetitors(Filter f);
 };
 
 

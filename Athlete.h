@@ -18,10 +18,11 @@ public:
     Athlete(int idd):id(idd) {}
     //TO DO
     //COPY CONSTRUCTOR?
-    int getId()const {return id;}
     friend bool operator==(const Athlete& a1, const Athlete& a2);
-    string type() override{
-        return "a";
+    set<int>* getId() override{
+        set<int>* tmp = new set<int>();
+        tmp->insert(id);
+        return tmp;
     }
 };
 

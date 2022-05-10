@@ -24,5 +24,11 @@ int main() {
 
     AthetesParser athParser(athletesId);
     athParser.athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt", athletes);
+
+    DataManipulation dm(competitors, sports, *games, *countries, &athletes);
+    int p = dm.numberOfPlayers(Filter("Sailing", "Italy", 2004, "Team", "Gold"));
+    int k = dm.numOfDisciplines(Filter("Sailing"));
+    double h = dm.averageAthletesHeight(Filter("Sailing", "New Zealand", 2004));
+    double w = dm.averageAthletesWeight(Filter("Sailing", "New Zealand", 2004));
     return 0;
 }

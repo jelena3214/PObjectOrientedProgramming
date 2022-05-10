@@ -17,8 +17,8 @@ private:
 public:
     Team(){}
     void addAthlete(int athlete);
-    string type() override{
-        return "t";
+    set<int>* getId() override{
+        return &athleteIds;
     }
 };
 

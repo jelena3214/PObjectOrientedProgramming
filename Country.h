@@ -18,6 +18,7 @@ public:
     Country(const Country& c);
     void addCompetitor(shared_ptr<Competitor> c);
     string getName(){return name;}
+    //vector<shared_ptr<Competitor>>* getCompetitors()const{return &competitors;}
     bool operator==(const Country& c);
     bool operator<(const Country& c)const;
     friend ostream & operator << (ostream &, const Country &c);

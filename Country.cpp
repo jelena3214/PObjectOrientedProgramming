@@ -23,3 +23,4 @@ ostream &operator<<(ostream &os, const Country &c) {
 bool Country::operator<(const Country &c) const {
     return name < c.name;
 }
+

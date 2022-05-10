@@ -31,6 +31,10 @@ public:
         athletes[p->getId()] = p;
     }
 
+    shared_ptr<Person> getPerson(int id){
+        return athletes.at(id);
+    }
+
 };
 
 
