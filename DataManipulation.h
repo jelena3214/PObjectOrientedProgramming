@@ -37,8 +37,8 @@ public:
      * Advanced data operations
      */
      int numberOfDifferentSportsWithMedal(const string& country);
-     set<Country> bestCountriesAtGame(int year, const string& season);
-     set<Country> bestCountries();
+     set<string> bestCountriesAtGame(int year, const string& season);
+     set<string> bestCountries();
      set<shared_ptr<Competitor>> bestYoungestAthletes();
      pair<Country, Person> wonIndividualAndTeamMedal();
      set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);

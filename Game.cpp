@@ -11,7 +11,7 @@ void Game::addCompetitor(shared_ptr<Competitor> c) {
 }
 
 bool Game::operator==(const Game &g) {
-    return season == g.season && year == g.year && city == g.city;
+    return (season == g.season && year == g.year) || (season == g.season && year == g.year && city == g.city);
 }
 
 bool Game::operator<(const Game &g)const {

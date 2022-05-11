@@ -10,7 +10,7 @@ int main() {
     People athletes = People::getInstance();
     // TODO sredi kod + destruktori???
     EventParser evParser;
-    evParser.eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", 1976);
+    evParser.eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt", 2004);
 
     AthetesParser athParser(evParser.getAthleteIds());
     athParser.athletesParse("C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt", athletes);
@@ -20,5 +20,9 @@ int main() {
     int k = dm.numOfDisciplines(Filter());
     double h = dm.averageAthletesHeight(Filter("", "Netherlands"));
     double w = dm.averageAthletesWeight(Filter("", "Netherlands"));
+    int medals = dm.numberOfDifferentSportsWithMedal("Ukraine");
+    auto pk = dm.bestCountriesAtGame(2004, "Summer");
+    auto pb = dm.bestCountries();
+    auto cp = dm.olympicCities();
     return 0;
 }

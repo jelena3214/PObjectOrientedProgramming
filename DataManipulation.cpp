@@ -6,7 +6,20 @@
 //TODO ucesnici kao br competitora ili kao svi ljudi sportisti?
 int DataManipulation::numberOfPlayers(Filter f) {
     auto res = getFilteredCompetitors(f);
-    return res.size();
+    set<int> ids;
+
+    for(shared_ptr<Competitor> cmp: res){
+        auto tmp = cmp->getId();
+        if(tmp->size() == 1){
+            ids.insert(*tmp->begin());
+        }else{
+            for(int p: *tmp){
+                ids.insert(p);
+            }
+        }
+    }
+
+    return ids.size();
 }
 
 int DataManipulation::numOfDisciplines(Filter f) {
@@ -85,4 +98,99 @@ double DataManipulation::averageAthletesWeight(Filter f) {
     }
     if(!averageWeight)return 0;
     return averageWeight/numOfAthletes;
+}
+
+int DataManipulation::numberOfDifferentSportsWithMedal(const string &country) {
+    auto countries = evParser->getCountries();
+    auto countryData = countries->find(Country(country));
+
+    set<Sport> sportsWithMedal;
+
+    for(shared_ptr<Competitor> comp: countryData->getCompetitors()){
+        if(comp->getMedal() != MedalType::NA){
+            sportsWithMedal.insert(*comp->getEvent()->getSport());
+        }
+    }
+    return sportsWithMedal.size();
+}
+//Todo see if you will need to return country object or string is just fine?
+set<string> DataManipulation::bestCountriesAtGame(int year, const string &season) {
+
+    struct medalCounter{
+        mutable int gold, silver, bronze;
+        medalCounter():gold(0), silver(0), bronze(0){}
+        void incGold()const{gold++;}
+        void incSilver()const{silver++;}
+        void incBronze()const{bronze++;}
+    };
+    typedef pair<Country, medalCounter> MyPair;
+
+    struct Comp{ //for comparing pairs
+        bool operator()(MyPair e, MyPair e1) const{
+            if(e.first.getName() <  e1.first.getName())return true;
+            if(e.first.getName() >  e1.first.getName())return false;
+            return false;
+        }
+    };
+
+    set<MyPair, Comp> countryMedalCount;
+    vector<MyPair> sortedVect;
+    auto games = evParser->getGames();
+    auto game = const_cast<Game&>(*games->find(Game(season, year, "")));
+
+
+    for(shared_ptr<Competitor> cmp: *game.getCompetitors()){ //inserting into set first because of duplicates
+        MyPair p;
+        p.first = *cmp->getCountry();
+        auto a = countryMedalCount.insert(p);
+        if(cmp->getMedal() == MedalType::GOLD)a.first->second.incGold();
+        if(cmp->getMedal() == MedalType::SILVER)a.first->second.incSilver();
+        if(cmp->getMedal() == MedalType::BRONZE)a.first->second.incBronze();
+    }
+
+    for(MyPair p: countryMedalCount){ //inserting in vector because of sorting
+        sortedVect.push_back(p);
+    }
+
+    sort(sortedVect.begin(), sortedVect.end(), [](MyPair e, MyPair e1){
+        if(e.second.gold != e1.second.gold)
+        {return e.second.gold > e1.second.gold;}
+        if(e.second.silver != e1.second.silver){return e.second.silver > e1.second.silver;}
+        if(e.second.bronze != e1.second.bronze)return e.second.bronze > e1.second.bronze;
+        return false;
+    });
+
+    set<string> threeBestCountries;
+    for(int i = 0; i < 3; i++)threeBestCountries.insert((sortedVect.begin()+i)->first.getName());
+    return threeBestCountries;
+}
+
+
+//todo za obe ove funkcije sta ako su neke drzave jednake u droju medalja
+
+//todo vidi da li misle na to da li je ikada bila u top 3 drzave na nekim igrama
+//todo na grupi kazu najbolja u smislu prva od ove 3 i isto vidi za vracanje stringa ili countryja
+set<string> DataManipulation::bestCountries() {
+    set<string> countries;
+    auto games = *evParser->getGames();
+
+    for(Game g: games){
+        auto ret = bestCountriesAtGame(g.getYear(), g.getName());
+        auto s = const_cast<string&>(*ret.begin());
+        countries.insert(s);
+    }
+
+    return countries;
+}
+
+set<string> DataManipulation::olympicCities() {
+    set<string> cities;
+
+    auto games = *evParser->getGames();
+
+    for(Game tmpGame: games){
+        cities.insert(tmpGame.getCity());
+    }
+
+    return cities;
 }
