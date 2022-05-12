@@ -7,6 +7,8 @@
 #include <map>
 #include "Person.h"
 #include<memory>
+#include <set>
+
 //Postoji samo jedna instanca People koja zadrzi sve potrebne ucesnike za taj filter
 //Na kraju programa se to dealocira
 //A dok u Athlete i Team cuvamo samo id/jeve koji im trebaju
@@ -30,6 +32,8 @@ public:
     void addPerson(shared_ptr<Person> p){
         athletes[p->getId()] = p;
     }
+
+    set<shared_ptr<Person>> getPeople(set<int> ids);
 
     shared_ptr<Person> getPerson(int id){
         return athletes.at(id);

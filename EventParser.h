@@ -20,6 +20,7 @@ using namespace std;
 
 class EventParser{
 private:
+
     vector<shared_ptr<Competitor>> competitors;
     set<Sport> sports;
     set<Game> gamesSet;

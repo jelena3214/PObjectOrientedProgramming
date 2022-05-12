@@ -14,8 +14,10 @@ bool Game::operator==(const Game &g) {
     return (season == g.season && year == g.year) || (season == g.season && year == g.year && city == g.city);
 }
 
-bool Game::operator<(const Game &g)const {
-    return season < g.season && city < g.city && year < g.year;
+bool Game::operator<(const Game &g2)const {
+    if(season < g2.season)return true;
+    if(year < g2.year) return true;
+    return false;
 }
 
 vector<shared_ptr<Competitor>> *Game::getCompetitors() {

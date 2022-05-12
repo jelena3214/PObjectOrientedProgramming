@@ -17,6 +17,7 @@ class Game {
 
 public:
     Game(string s, int y, string c): season(s), year(y), city(c){}
+    Game(){}
     void addCompetitor(shared_ptr<Competitor> c);
     vector<shared_ptr<Competitor>>* getCompetitors();
     int numberOfCompetitors()const{return competitors.size();}
