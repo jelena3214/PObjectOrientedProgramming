@@ -10,7 +10,7 @@ set<shared_ptr<Person>> People::getPeople(set<int> ids) {
     set<shared_ptr<Person>> returnPeople;
 
     for(int id: ids){
-        returnPeople.insert(instance->getPerson(id));
+        returnPeople.insert(getPerson(id));
     }
 
     return returnPeople;

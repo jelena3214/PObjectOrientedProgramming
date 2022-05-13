@@ -174,10 +174,11 @@ set<string> DataManipulation::bestCountriesAtGame(int year, const string &season
     });
 
     set<string> threeBestCountries;
-    for (int i = 0; i < 3; i++)threeBestCountries.insert((sortedVect.begin() + i)->first.getName());
+    int lenght = 3;
+    if(sortedVect.size() < 3)lenght = sortedVect.size();
+    for (int i = 0; i < lenght; i++)threeBestCountries.insert((sortedVect.begin() + i)->first.getName());
     return threeBestCountries;
 }
-
 
 //todo za obe ove funkcije sta ako su neke drzave jednake u droju medalja
 
@@ -241,6 +242,32 @@ set<shared_ptr<Person>> DataManipulation::participatedAtGames(pair<Game, Game> g
     set_intersection(game1Ids.begin(), game1Ids.end(), game2Ids.begin(), game2Ids.end(),
                      inserter(intersection, intersection.begin()));
 
-    return athletes->getPeople(intersection);
+    if(intersection.size() == 0){
+        cout << "Nema preseka\n";
+        return set<shared_ptr<Person>>();
+    }
 
+    return athletes->getPeople(intersection);
+}
+
+vector<shared_ptr<Competitor>> DataManipulation::countryTeamsAtGame(int year, const string &season, const string& country) {
+    auto game = const_cast<Game&>(*evParser->getGames()->find(Game(season, year, "")));
+    vector<shared_ptr<Competitor>> countryTeam;
+
+    for(shared_ptr<Competitor> comp: *game.getCompetitors()){
+        if(comp->getCountry()->getName() == country && comp->getId()->size() > 1){
+            countryTeam.push_back(comp);
+        }
+    }
+
+    sort(countryTeam.begin(), countryTeam.end(), [](shared_ptr<Competitor> c, shared_ptr<Competitor> c1){
+       if(c->getId()->size() != c1->getId()->size())return c->getId()->size() > c1->getId()->size();
+    });
+
+    sort(countryTeam.begin(), countryTeam.end(), [](shared_ptr<Competitor> c, shared_ptr<Competitor> c1){
+        if(c->getEvent()->getName() != c1->getEvent()->getName())return c->getEvent()->getName() < c1->getEvent()->getName();
+        return false;
+    });
+
+    return countryTeam;
 }

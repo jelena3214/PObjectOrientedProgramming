@@ -42,7 +42,7 @@ public:
      set<shared_ptr<Competitor>> bestYoungestAthletes();
      pair<Country, Person> wonIndividualAndTeamMedal();
      set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
-     set<shared_ptr<Team>> countryTeamsAtGame(int year, const string& season);
+     vector<shared_ptr<Competitor>> countryTeamsAtGame(int year, const string& season, const string& country);
      set<string> olympicCities();
 
 };

@@ -25,10 +25,11 @@ int main() {
     auto pb = dm.bestCountries();
     auto cp = dm.olympicCities();
     Game ga("Summer", 2012, "London");
-    Game gb("Summer", 1976, "Montreal");
+    Game gb("Summer", 2016, "Rio de Janeiro");
     std::pair<Game, Game> gamess;
     gamess.first = ga;
     gamess.second = gb;
     auto s = dm.participatedAtGames(gamess);
+    auto teams = dm.countryTeamsAtGame(1976, "Summer", "Belgium");
     return 0;
 }

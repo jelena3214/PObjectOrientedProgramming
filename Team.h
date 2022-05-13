@@ -17,6 +17,7 @@ private:
 public:
     Team(){}
     void addAthlete(int athlete);
+    int getNumberOfAthletes()const{return athleteIds.size();}
     set<int>* getId() override{
         return &athleteIds;
     }
