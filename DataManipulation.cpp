@@ -271,3 +271,37 @@ vector<shared_ptr<Competitor>> DataManipulation::countryTeamsAtGame(int year, co
 
     return countryTeam;
 }
+
+set<pair<Country, shared_ptr<Person>>>  DataManipulation::wonIndividualAndTeamMedal() {
+    auto& countries = *evParser->getCountries();
+
+    set<pair<Country, shared_ptr<Person>>> returnSet;
+
+    //todo vidi zasto foreach petlja kopira vrednost a ne vraca pokazivac na tu vec postojacu iz seta for(auto s: countrries) ne radi
+    //jer ova sto radi ide preko iteratora koji j epokazivac, a ova druga ko zna na sta pokazuje jer nije referenca na objekte!!!!
+    //auto count = countries.begin(); count != countries.end(); count++
+    for(auto& count: countries){
+        set<int>wonIndividualMedal;
+        set<int>wonTeamMedal;
+        for(shared_ptr<Competitor> cmp: count.getCompetitors()){
+            if(cmp->getMedal() == MedalType::NA)continue;
+            if(cmp->getId()->size() == 1){ //individual
+                wonIndividualMedal.insert(*cmp->getId()->begin());
+            }else{
+                wonTeamMedal.insert(cmp->getId()->begin(), cmp->getId()->end());
+            }
+        }
+
+        set<int> intersect;
+        set_intersection(wonTeamMedal.begin(), wonTeamMedal.end(), wonIndividualMedal.begin(), wonIndividualMedal.end(),
+                         std::inserter(intersect, intersect.begin()));
+        if(intersect.size() == 0)continue;
+        for(int id: intersect){
+            pair<Country, shared_ptr<Person>> tmp;
+            tmp.first = count;
+            tmp.second = athletes->getPerson(id);
+            returnSet.insert(tmp);
+        }
+    }
+    return returnSet;
+}

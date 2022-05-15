@@ -31,5 +31,6 @@ int main() {
     gamess.second = gb;
     auto s = dm.participatedAtGames(gamess);
     auto teams = dm.countryTeamsAtGame(1976, "Summer", "Belgium");
+    auto sportpairs = dm.wonIndividualAndTeamMedal();
     return 0;
 }
