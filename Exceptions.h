@@ -46,5 +46,8 @@ class AdvancedFilteringError : public exception {
     }
 };
 
+class ReturnError : public exception {
+};
+
 
 #endif //POOP_EXCEPTIONS_H

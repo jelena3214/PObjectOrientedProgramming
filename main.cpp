@@ -44,7 +44,7 @@ int main() {
     DataManipulation dm(&evParser, &athletes);
 
     Filter* filter = nullptr;
-
+    string space;
     int chosenOption;
 
     while(true){
@@ -52,16 +52,18 @@ int main() {
         cin >> chosenOption;
         try {
             if (chosenOption < 5) { //make filter
-                cout << "Unesite ime sporta: " << endl;
+                cout << "Unesite ime sporta (/ nista): " << endl;
                 string sport;
-                cin >> sport;
-                cout << "Unesite ime drzave: " << endl;
+                getline(cin, space);
+                getline(cin, sport);
+                cout << "Unesite ime drzave (/ nista): " << endl;
                 string country;
-                cin >> country;
+                getline(cin, space);
+                getline(cin, country);
                 int year;
-                cout << "Unesite godinu: " << endl;
+                cout << "Unesite godinu (0 nista): " << endl;
                 cin >> year;
-                cout << "Unesite tip dogadjaja 1(Individualni), 2(Timski):  " << endl;
+                cout << "Unesite tip dogadjaja 1(Individualni), 2(Timski), (0 nista):  " << endl;
                 int type;
                 cin >> type;
                 string typeName;
@@ -70,7 +72,7 @@ int main() {
                 } else if (type == 2) {
                     typeName = "Team";
                 } else typeName = "";
-                cout << "Unesite tip medalje 1(Zlatna), 2(Srebrna), 3(Bronzana):  " << endl;
+                cout << "Unesite tip medalje 1(Zlatna), 2(Srebrna), 3(Bronzana), (0 nista):  " << endl;
                 int medal;
                 cin >> medal;
                 string medalName;
@@ -82,7 +84,7 @@ int main() {
                     medalName = "Bronze";
                 } else medalName = "";
 
-                filter = new Filter(sport, country, year, typeName, medalName);
+                filter = new Filter((sport != "/"?sport:""), (country != "/"?country:""), year, typeName, medalName);
             }
 
             if (chosenOption == 1) {
@@ -95,13 +97,16 @@ int main() {
                 cout << dm.averageAthletesWeight(*filter) << endl;
             } else if (chosenOption == 5) {
                 string country;
-                cin >> country;
+                cout << "Unesite ime drzave: " << endl;
+                getline(cin, space);
+                getline(cin, country);
                 cout << dm.numberOfDifferentSportsWithMedal(country) << endl;
             } else if (chosenOption == 6) {
                 string season;
                 int year;
                 cout << "Unesi tip Olimpijskih igara: ";
-                cin >> season;
+                getline(cin, space);
+                getline(cin, season);
                 cout << endl << "Unesi godinu: ";
                 cin >> year;
                 auto res = dm.bestCountriesAtGame(year, season);
@@ -129,11 +134,13 @@ int main() {
                 Game* first, *second;
                 for(int i = 0; i < 2; i++) {
                     cout << "Unesite vrstu igara: ";
-                    cin >> season;
+                    if(i == 0)getline(cin, space);
+                    getline(cin, season);
                     cout << "\nUnesite godinu odrzavanja: ";
                     cin >> year;
                     cout << "\nUnesite grad: ";
-                    cin >> city;
+                    getline(cin, space);
+                    getline(cin, city);
                     if(i == 0) first = new Game(season, year, city);
                     else second = new Game(season, year, city);
                 }
@@ -150,18 +157,23 @@ int main() {
                 string season, country;
                 int year;
                 cout << "Unesite vrstu igara: ";
-                cin >> season;
+                getline(cin, space);
+                getline(cin, season);
                 cout << "\nUnesite godinu odrzavanja: ";
                 cin >> year;
                 cout << "\nUnesite drzavu: ";
-                cin >> country;
+                getline(cin, space);
+                getline(cin, country);
                 auto teams = dm.countryTeamsAtGame(year, season, country);
                 int i = 1;
                 for(const auto& t: teams){
                     auto ids = t->getId();
                     cout << i << ". [";
+                    int k = 0;
                     for(int id: *ids){
-                        cout << id << ", ";
+                        cout << id;
+                        if(k < ids->size() - 1)cout << ", ";
+                        k++;
                     }
                     cout << "]" << endl;
                     i++;
@@ -169,7 +181,7 @@ int main() {
             }else if(chosenOption == 12){
                 auto cities = dm.olympicCities();
                 for(auto city: cities){
-                    cout << city;
+                    cout << city << endl;
                 }
             }else if(chosenOption == 13){
                 break;

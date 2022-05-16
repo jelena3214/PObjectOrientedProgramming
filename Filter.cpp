@@ -4,6 +4,7 @@
 
 #include "Filter.h"
 #include "Country.h"
+#include "Exceptions.h"
 
 vector<shared_ptr<Competitor>> Filter::sportFiltering(vector<shared_ptr<Competitor>> competitors) {
     if (sport.empty())return competitors;
@@ -27,6 +28,7 @@ vector<shared_ptr<Competitor>> Filter::countryFiltering(vector<shared_ptr<Compet
 
 vector<shared_ptr<Competitor>> Filter::yearFiltering(set<Game> games) {
     auto t = find_if(games.begin(), games.end(), [this](Game g) { return g.getYear() == year; });
+    if(t == games.end()) throw ReturnError();
     auto tmp = const_cast<Game &>(*t);
     return *tmp.getCompetitors();
 }
