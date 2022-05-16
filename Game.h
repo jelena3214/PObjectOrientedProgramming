@@ -20,6 +20,7 @@ public:
     Game(){}
     void addCompetitor(shared_ptr<Competitor> c);
     vector<shared_ptr<Competitor>>* getCompetitors();
+    const vector<shared_ptr<Competitor>>* getCompetitors() const;
     int numberOfCompetitors()const{return competitors.size();}
     string getName() const{return season;}
     string getCity()const {return city;}

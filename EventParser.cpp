@@ -4,6 +4,7 @@
 
 #include "EventParser.h"
 #include "EventTypeClass.h"
+#include "Exceptions.h"
 #include<regex>
 
 using namespace std;
@@ -11,8 +12,9 @@ using namespace std;
 void EventParser::eventParsing(const char* fileName, int findForYear){
     fstream eventFile;
     eventFile.open(fileName, ios::in);
-    // TODO if(!eventFile) throw Greska;
-    if(!eventFile)cout << "No";
+
+    if(!eventFile)throw FileNotFound();
+
     string tmp;
 
     regex reLine("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)");
@@ -22,7 +24,7 @@ void EventParser::eventParsing(const char* fileName, int findForYear){
     smatch matchYearSeason; //Year & season
 
     bool group = (findForYear == -1); //Group regime
-    //TODO ako nema te godine u faju greska
+
     while(getline(eventFile, tmp)){
         if (regex_search(tmp, matchLine, reLine) == true) {
             string games = matchLine.str(1);
@@ -86,10 +88,17 @@ void EventParser::eventParsing(const char* fileName, int findForYear){
             competitors.push_back(newCompetitor);
 
         }else{
-            cout<< "Not found"<< endl;
+            cout<< "Not found" << " :: ";
+            throw RegexError();
         }
 
     }
+
+    if(gamesSet.empty()){
+        cout << "The needed year doesn't exist in the file" << " :: ";
+        throw LoadingError();
+    }
+
     eventFile.close();
 }
 
@@ -100,7 +109,10 @@ shared_ptr<Event> EventParser::insertEventToSport(const string& event, const str
     Sport tmpSport(sport);
     auto it = sports.find(tmpSport);
 
-    //if(it == sports.end())//TODO GRESKA
+    if(it == sports.end()){
+        cout << "Sport not included yet" << " :: ";
+        throw LoadingError();
+    }
     newEvent->setSport(const_cast<Sport&>((*it)));
     (*it).addEvent(newEvent);
     return newEvent;

@@ -10,6 +10,7 @@
 #include "Filter.h"
 #include "EventParser.h"
 #include "AthletesParser.h"
+#include <deque>
 
 using namespace std;
 
@@ -37,10 +38,10 @@ public:
      * Advanced data operations
      */
      int numberOfDifferentSportsWithMedal(const string& country);
-     set<string> bestCountriesAtGame(int year, const string& season);
-     set<string> bestCountries();
-     set<shared_ptr<Competitor>> bestYoungestAthletes();
-    set<pair<Country, shared_ptr<Person>>>wonIndividualAndTeamMedal();
+     deque<Country*> bestCountriesAtGame(int year, const string& season);
+     set<Country*> bestCountries();
+     vector<shared_ptr<Person>> bestYoungestAthletes();
+     set<pair<Country, shared_ptr<Person>>>wonIndividualAndTeamMedal();
      set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
      vector<shared_ptr<Competitor>> countryTeamsAtGame(int year, const string& season, const string& country);
      set<string> olympicCities();

@@ -35,6 +35,11 @@ public:
         }
     };
 
+    ~Event(){
+        sport = nullptr;
+    }
+
+
 };
 
 

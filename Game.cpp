@@ -24,5 +24,9 @@ vector<shared_ptr<Competitor>> *Game::getCompetitors() {
     return &competitors;
 }
 
+const vector<shared_ptr<Competitor>> *Game::getCompetitors() const {
+    return &competitors;
+}
+
 
 

@@ -3,18 +3,23 @@
 //
 
 #include "AthletesParser.h"
+#include "Exceptions.h"
 
 void AthetesParser::athletesParse(const char* fileName, People& people){
     fstream eventFile;
     eventFile.open(fileName, ios::in);
-    // TODO if(!eventFile) throw Greska;
-    if(!eventFile)cout << "No";
+
+    if(!eventFile)throw FileNotFound();
+
     string tmp;
     regex re("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)");
     smatch match;
     int i = 0;
 
-    //TODO empty set
+    if(athletes.empty()){
+        cout << "No athletes to be loaded" << " :: ";
+        throw LoadingError();
+    }
 
     while(getline(eventFile, tmp)){
         if (regex_search(tmp, match, re) == true) {
@@ -28,10 +33,11 @@ void AthetesParser::athletesParse(const char* fileName, People& people){
             if(height == "NA")height = "0";
             string weight = match.str(6);
             if(weight == "NA")weight = "0";
-            people.addPerson(make_shared< Person>(stoi(id), stoi(yearsOld), stoi(height), stoi(weight), name, gender));
+            people.addPerson(make_shared<Person>(stoi(id), stoi(yearsOld), stoi(height), stoi(weight), name, gender));
             cout << i++ << endl;
         }else{
-            cout<< "Not found"<< endl;
+            cout<< "Not found" << " :: ";
+            throw RegexError();
         }
 
     }

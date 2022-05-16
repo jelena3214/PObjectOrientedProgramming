@@ -20,13 +20,13 @@ private:
     int year;
     EventType eventType;
     MedalType medalType;
-    bool eventFlag = 0, medalFlag = 0;
+    bool eventFlag = false, medalFlag = false;
 
 public:
     explicit Filter(const string ss = "", const string cc = "", const int yy = 0, const string ev = "", const string mt = ""):
             sport(ss), country(cc), year(yy){
-        if(ev != "") eventType = EventTypeClass::getEventTypeFromString(ev), eventFlag = 1;
-        if(mt != "") medalType = MedalTypeClass::getMedalTypeFromString(mt), medalFlag = 1;
+        if(!ev.empty()) eventType = EventTypeClass::getEventTypeFromString(ev), eventFlag = true;
+        if(!mt.empty()) medalType = MedalTypeClass::getMedalTypeFromString(mt), medalFlag = true;
     }
 
     vector<shared_ptr<Competitor>> sportFiltering(vector<shared_ptr<Competitor>> competitors);
@@ -35,7 +35,7 @@ public:
     vector<shared_ptr<Competitor>> eventTypeFiltering(vector<shared_ptr<Competitor>> competitors);
     vector<shared_ptr<Competitor>> medalTypeFiltering(vector<shared_ptr<Competitor>> competitors);
 
-    bool isSetYear()const{return year!=0;}
+    bool isYearSet()const{return year != 0;}
 };
 
 

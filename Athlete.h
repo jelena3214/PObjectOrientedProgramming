@@ -16,8 +16,6 @@ private:
 
 public:
     Athlete(int idd):id(idd) {}
-    //TO DO
-    //COPY CONSTRUCTOR?
     friend bool operator==(const Athlete& a1, const Athlete& a2);
     set<int>* getId() override{
         set<int>* tmp = new set<int>();

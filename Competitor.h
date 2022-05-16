@@ -28,6 +28,9 @@ public:
     virtual set<int>* getId(){
         return nullptr;
     }
+    ~Competitor(){
+        country = nullptr;
+    }
 
 };
 

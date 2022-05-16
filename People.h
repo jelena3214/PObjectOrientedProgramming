@@ -27,7 +27,7 @@ public:
         }
         return *instance;
     }
-    //static void deleteInstance();
+    static void deleteInstance() {free(instance);}
 
     void addPerson(shared_ptr<Person> p){
         athletes[p->getId()] = p;
