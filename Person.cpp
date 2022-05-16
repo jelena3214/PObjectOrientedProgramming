@@ -3,3 +3,8 @@
 //
 
 #include "Person.h"
+
+ostream &operator<<(ostream &os, const Person &c) {
+    os << c.id << ", " << c.name << ", " << c.gender << ", " << c.yearsOld << ", " << c.weight << ", " << c.height;
+    return os;
+}

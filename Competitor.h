@@ -9,6 +9,7 @@
 #include "MedalTypeClass.h"
 #include <memory>
 #include <set>
+#include <iostream>
 
 using namespace std;
 
@@ -32,7 +33,7 @@ public:
 
     Country *getCountry() const { return country; }
 
-    virtual set<int> *getId() {
+    virtual set<int> *getId(){
         return nullptr;
     }
 
