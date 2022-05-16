@@ -4,12 +4,12 @@
 
 #include "People.h"
 
-People* People::instance = nullptr;
+People *People::instance = nullptr;
 
 set<shared_ptr<Person>> People::getPeople(set<int> ids) {
     set<shared_ptr<Person>> returnPeople;
 
-    for(int id: ids){
+    for (int id: ids) {
         returnPeople.insert(getPerson(id));
     }
 

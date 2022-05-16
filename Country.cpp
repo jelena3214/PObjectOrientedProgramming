@@ -5,10 +5,10 @@
 #include "Country.h"
 
 void Country::addCompetitor(shared_ptr<Competitor> c) {
-    if(c)competitors.push_back(c);
+    if (c)competitors.push_back(c);
 }
 
-bool Country::operator==(const Country& c) {
+bool Country::operator==(const Country &c) {
     return name == c.name;
 }
 

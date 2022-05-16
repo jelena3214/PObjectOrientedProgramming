@@ -6,6 +6,7 @@
 #define POOP_EVENTTYPECLASS_H
 
 #include <string>
+
 using namespace std;
 
 
@@ -15,8 +16,8 @@ public:
         TEAM, INDIVIDUAL
     };
 
-    static EventType getEventTypeFromString(const string& s){
-        if(s == "Individual") return INDIVIDUAL;
+    static EventType getEventTypeFromString(const string &s) {
+        if (s == "Individual") return INDIVIDUAL;
         return TEAM;
     }
 

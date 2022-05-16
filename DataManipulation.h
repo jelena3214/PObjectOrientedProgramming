@@ -16,11 +16,11 @@ using namespace std;
 
 class DataManipulation {
 private:
-    EventParser* evParser;
-    People* athletes;
+    EventParser *evParser;
+    People *athletes;
 public:
 
-    DataManipulation(EventParser* ev, People* ath){
+    DataManipulation(EventParser *ev, People *ath) {
         evParser = ev;
         athletes = ath;
     }
@@ -29,22 +29,33 @@ public:
      * Basic filtering options
      */
     int numberOfPlayers(Filter f);
+
     int numOfDisciplines(Filter f);
+
     double averageAthletesHeight(Filter f);
+
     double averageAthletesWeight(Filter f);
+
     vector<shared_ptr<Competitor>> getFilteredCompetitors(Filter f);
 
     /**
      * Advanced data operations
      */
-     int numberOfDifferentSportsWithMedal(const string& country);
-     deque<Country*> bestCountriesAtGame(int year, const string& season);
-     set<Country*> bestCountries();
-     vector<shared_ptr<Person>> bestYoungestAthletes();
-     set<pair<Country, shared_ptr<Person>>>wonIndividualAndTeamMedal();
-     set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
-     vector<shared_ptr<Competitor>> countryTeamsAtGame(int year, const string& season, const string& country);
-     set<string> olympicCities();
+    int numberOfDifferentSportsWithMedal(const string &country);
+
+    deque<Country *> bestCountriesAtGame(int year, const string &season);
+
+    set<Country *> bestCountries();
+
+    vector<shared_ptr<Person>> bestYoungestAthletes();
+
+    set<pair<Country, shared_ptr<Person>>> wonIndividualAndTeamMedal();
+
+    set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
+
+    vector<shared_ptr<Competitor>> countryTeamsAtGame(int year, const string &season, const string &country);
+
+    set<string> olympicCities();
 
 };
 

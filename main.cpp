@@ -12,7 +12,7 @@ int main() {
     EventParser evParser;
     try {
         evParser.eventParsing("C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt");
-    }catch(const exception& e){
+    } catch (const exception &e) {
         cout << e.what() << endl;
     }
 
@@ -39,8 +39,8 @@ int main() {
         auto teams = dm.countryTeamsAtGame(1976, "Summer", "Belgium");
         auto sportpairs = dm.wonIndividualAndTeamMedal();
         auto st = dm.bestYoungestAthletes();
-        cout<<"P";
-    }catch(const exception& e){
+        cout << "P";
+    } catch (const exception &e) {
         cout << e.what() << endl;
     }
     /*

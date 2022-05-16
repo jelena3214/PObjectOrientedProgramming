@@ -4,21 +4,25 @@
 
 #ifndef POOP_MEDALTYPECLASS_H
 #define POOP_MEDALTYPECLASS_H
+
 #include<string>
-using  namespace std;
 
-class MedalTypeClass{
+using namespace std;
+
+class MedalTypeClass {
 public:
-    enum MedalType{GOLD, SILVER, BRONZE, NA};
+    enum MedalType {
+        GOLD, SILVER, BRONZE, NA
+    };
 
-    static MedalType getMedalTypeFromString(const string& medal){
-        if(medal == "Gold"){
+    static MedalType getMedalTypeFromString(const string &medal) {
+        if (medal == "Gold") {
             return GOLD;
-        }else if(medal == "Silver"){
+        } else if (medal == "Silver") {
             return SILVER;
-        }else if(medal == "Bronze"){
+        } else if (medal == "Bronze") {
             return BRONZE;
-        }else{
+        } else {
             return NA;
         }
     }

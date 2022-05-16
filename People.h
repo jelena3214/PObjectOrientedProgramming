@@ -4,6 +4,7 @@
 
 #ifndef POOP_PEOPLE_H
 #define POOP_PEOPLE_H
+
 #include <map>
 #include "Person.h"
 #include<memory>
@@ -18,24 +19,27 @@ using namespace std;
 class People {
     map<int, shared_ptr<Person>> athletes;
 
-    static People* instance;
+    static People *instance;
+
     People() {}
+
 public:
-    static People& getInstance() {
+    static People &getInstance() {
         if (instance == nullptr) {
             instance = new People();
         }
         return *instance;
     }
-    static void deleteInstance() {free(instance);}
 
-    void addPerson(shared_ptr<Person> p){
+    static void deleteInstance() { free(instance); }
+
+    void addPerson(shared_ptr<Person> p) {
         athletes[p->getId()] = p;
     }
 
     set<shared_ptr<Person>> getPeople(set<int> ids);
 
-    shared_ptr<Person> getPerson(int id){
+    shared_ptr<Person> getPerson(int id) {
         return athletes.at(id);
     }
 

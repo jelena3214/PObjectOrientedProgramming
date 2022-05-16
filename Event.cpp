@@ -5,7 +5,7 @@
 #include "Event.h"
 #include "Sport.h"
 
-bool Event::operator==(const Event& e) const {
+bool Event::operator==(const Event &e) const {
     return e.name == name && e.evType == evType;
 }
 

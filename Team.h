@@ -4,21 +4,25 @@
 
 #ifndef POOP_TEAM_H
 #define POOP_TEAM_H
+
 #include<iostream>
 #include <set>
 #include "Competitor.h"
 
 using namespace std;
 
-class Team: public Competitor {
+class Team : public Competitor {
 private:
     set<int> athleteIds;
 
 public:
-    Team(){}
+    Team() {}
+
     void addAthlete(int athlete);
-    int getNumberOfAthletes()const{return athleteIds.size();}
-    set<int>* getId() override{
+
+    int getNumberOfAthletes() const { return athleteIds.size(); }
+
+    set<int> *getId() override {
         return &athleteIds;
     }
 };

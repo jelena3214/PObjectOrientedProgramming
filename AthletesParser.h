@@ -11,14 +11,14 @@
 #include<fstream>
 #include <regex>
 
-class AthetesParser{
+class AthetesParser {
 private:
     set<int> athletes;
 public:
-    AthetesParser(set<int>& at): athletes(at){}
-    void athletesParse(const char* fileName, People& ppl);
-};
+    AthetesParser(set<int> &at) : athletes(at) {}
 
+    void athletesParse(const char *fileName, People &ppl);
+};
 
 
 #endif //POOP_ATHLETESPARSER_H

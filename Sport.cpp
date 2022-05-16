@@ -4,13 +4,14 @@
 
 #include "Sport.h"
 
-void Sport::addEvent(shared_ptr<Event> e) const{
+void Sport::addEvent(shared_ptr<Event> e) const {
     events.insert(e);
 }
-bool Sport::operator==(const Sport& s) const {
+
+bool Sport::operator==(const Sport &s) const {
     return name == s.name;
 }
 
-bool Sport::operator<(const Sport& s) const{
+bool Sport::operator<(const Sport &s) const {
     return name < s.name;
 }
