@@ -4,6 +4,7 @@
 
 #include "DataManipulation.h"
 #include "Exceptions.h"
+#include <unordered_map>
 
 int DataManipulation::numberOfPlayers(Filter f) {
     vector<shared_ptr<Competitor>> res;
@@ -330,47 +331,58 @@ set<pair<shared_ptr<Country>, shared_ptr<Person>>> DataManipulation::wonIndividu
 }
 
 vector<shared_ptr<Person>> DataManipulation::bestYoungestAthletes() {
-    auto athletesIds = evParser->getAthleteIds();
+    struct YearMedal{
+        int year;
+        int wonMedal;
+        YearMedal(int y, int wm){
+            year = y;
+            wonMedal = wm;
+        }
+    };
+
+    unordered_map<int, YearMedal> mapPlayerFirstMedal;
     auto games = evParser->getGames();
 
-    vector<int> youngestWithMedal;
-
-    for (int id: athletesIds) {
-        const Game *firstParticipation = nullptr;
-        MedalType medalWon;
-        int firstParticipationYear = INT_MAX;
-
-        for (auto &game: games) {
-            auto competitors = *game.getCompetitors();
-            for (auto competitor: competitors) {
-                auto& idSet = competitor->getId();
-                if (idSet.find(id) != idSet.end()) {
-                    if ((game.getYear() < firstParticipationYear) ||
-                        (game.getYear() == firstParticipationYear && competitor->getMedal() != MedalType::NA)) {
-                        firstParticipation = &game;
-                        firstParticipationYear = game.getYear();
-                        medalWon = competitor->getMedal();
+    for(auto& game: games){
+        auto competitors = *game.getCompetitors();
+        for(const auto& competitor: competitors){
+            for(int id: competitor->getId()){
+                auto entry = mapPlayerFirstMedal.find(id);
+                if(entry == mapPlayerFirstMedal.end()){ //Doesn't exist
+                    mapPlayerFirstMedal.insert(make_pair(id, YearMedal(game.getYear(), (competitor->getMedal() != MedalType::NA? 1:0))));
+                }else{ //Already exists, change value if it is needed
+                    if(game.getYear() < mapPlayerFirstMedal.find(id)->second.year){
+                        entry->second = YearMedal(game.getYear(), (competitor->getMedal() != MedalType::NA? 1:0));
                     }
                 }
+
             }
         }
-
-        if (medalWon != MedalType::NA) youngestWithMedal.push_back(id);
-
     }
 
-    vector<shared_ptr<Person>> youngAthletes;
 
-    for (int id: youngestWithMedal) {
-        youngAthletes.push_back(athletes->getPerson(id));
+    vector<shared_ptr<Person>> athletesWithMedal;
+
+    for(auto it: mapPlayerFirstMedal){
+        if(it.second.wonMedal){
+            athletesWithMedal.push_back(athletes->getPerson(it.first));
+        }
     }
 
-    sort(youngAthletes.begin(), youngAthletes.end(), [](const shared_ptr<Person> &p1, const shared_ptr<Person> &p2) {
+    athletesWithMedal.erase(
+            std::remove_if(athletesWithMedal.begin(), athletesWithMedal.end(),
+                           [](const shared_ptr<Person> & o) { return o->getYears() == 0; }),
+            athletesWithMedal.end());
+
+    sort(athletesWithMedal.begin(), athletesWithMedal.end(), [](const shared_ptr<Person> &p1, const shared_ptr<Person> &p2) {
         return p1->getYears() < p2->getYears();
     });
 
-    if (youngAthletes.size() > 10) {
-        youngAthletes.resize(10);
+
+
+    if (athletesWithMedal.size() > 10) {
+        athletesWithMedal.resize(10);
     }
-    return youngAthletes;
+    return athletesWithMedal;
+
 }

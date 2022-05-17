@@ -20,6 +20,7 @@ using namespace std;
 
 class EventParser {
 public:
+
     struct CountryPrtComp { //for comparing pointers in set of countries
         using is_transparent = void;
         bool operator()(const shared_ptr<Country>& e, const shared_ptr<Country>& e1) const {
@@ -48,13 +49,13 @@ public:
     };
 
 private:
+
     vector<shared_ptr<Competitor>> competitors;
     set<shared_ptr<Sport>, SportPrtComp> sports;
     set<Game> gamesSet;
     set<shared_ptr<Country>, CountryPrtComp> countrySet;
     set<int> athletesId;
 
-    //shared_ptr<Event> insertEventToSport(const string &event, const string &type, const string &sport);
 
 public:
     void eventParsing(const char *fileName, int year = -1);

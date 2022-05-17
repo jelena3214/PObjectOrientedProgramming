@@ -33,11 +33,27 @@ public:
 
     bool operator==(const Event &e) const;
 
+    bool operator<(const Event& e) const;
+
     struct EventPrtComp { //for comparing pointers in set of Event*
-        bool operator()(shared_ptr<Event> e, shared_ptr<Event> e1) const {
+        using is_transparent = void;
+        bool operator()(const shared_ptr<Event>& e, const shared_ptr<Event>& e1) const {
             if (e->getName() < e1->getName())return true;
             if (e->getName() > e1->getName())return false;
             if (e->getType() > e1->getType())return true;
+            return false;
+        }
+        bool operator()(const shared_ptr<Event>& e, const Event& e1) const {
+            if (e->getName() < e1.getName())return true;
+            if (e->getName() > e1.getName())return false;
+            if (e->getType() > e1.getType())return true;
+            return false;
+        }
+
+        bool operator()(const Event& e, const shared_ptr<Event>& e1) const {
+            if (e.getName() < e1->getName())return true;
+            if (e.getName() > e1->getName())return false;
+            if (e.getType() > e1->getType())return true;
             return false;
         }
     };

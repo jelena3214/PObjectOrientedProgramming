@@ -14,6 +14,13 @@ bool Sport::operator<(const Sport &s) const {
 
 shared_ptr<Event> Sport::addEvent(const string &name, const string &type) const {
     EventType e = EventTypeClass::getEventTypeFromString(type);
-    auto eventPair = events.insert(make_shared<Event>(Event(name, e)));
-    return *eventPair.first;
+    auto eventPair = events.find(Event(name, e));
+    shared_ptr<Event> event;
+    if(eventPair == events.end()){ //Doesn't exist
+        auto insertRes = events.insert(make_shared<Event>(Event(name, e)));
+        event = *insertRes.first;
+    }else{
+        event = *eventPair;
+    }
+    return event;
 }

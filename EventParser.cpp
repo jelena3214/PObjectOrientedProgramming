@@ -46,38 +46,41 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
             string ids = matchLine.str(7);
             string medal = matchLine.str(8);
 
-            //kada ubacim ovako makeshared???
-
+            //Insert game
             auto tmpGamePair = gamesSet.insert(Game(season, year, city));
             auto& currentGame = *tmpGamePair.first;
 
+            //Insert country
             auto tmpPair = countrySet.find(Country(country));
             shared_ptr<Country> currentCountry;
-            if(tmpPair == countrySet.end()){
+            if(tmpPair == countrySet.end()){ //Doesn't exist
                 auto insertRes = countrySet.insert(make_shared<Country>(Country(country)));
                 currentCountry = *insertRes.first;
             }else{
                 currentCountry = *tmpPair;
             }
 
+            //Insert sport
             auto tmpSportPair = sports.find(Sport(sport));
             shared_ptr<Sport> currentSport;
-            if(tmpSportPair == sports.end()){
+            if(tmpSportPair == sports.end()){ //Doesn't exist
                 auto insertRes = sports.insert(make_shared<Sport>(Sport(sport)));
                 currentSport = *insertRes.first;
             }else{
                 currentSport = *tmpSportPair;
             }
 
+            //Insert Event to sport
             auto currentEvent = currentSport->addEvent(event, type);
             currentEvent->setSport(currentSport);
 
-            shared_ptr<Competitor> newCompetitor = nullptr;
+            //Make new Competitor
+            shared_ptr<Competitor> newCompetitor;
             if (ids[0] == '[') { //Team
                 shared_ptr<Team> newTeam = make_shared<Team>();
                 ids = ids.substr(1, ids.size() - 2);
 
-
+                //Parsing string
                 vector<string> out(
                         sregex_token_iterator(ids.begin(), ids.end(), reIdParse, -1),
                         sregex_token_iterator()
@@ -96,12 +99,14 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
 
             }
 
+            //Set Medal for Competitor
             MedalType m = MedalTypeClass::getMedalTypeFromString(medal);
             newCompetitor->setEvent(currentEvent);
             newCompetitor->setMedal(m);
 
-            newCompetitor->setCountry(currentCountry); //Adding competitor to the country
-            currentCountry->addCompetitor(newCompetitor);
+            //Set Country pointer for Competitor
+            newCompetitor->setCountry(currentCountry);
+            currentCountry->addCompetitor(newCompetitor); //Adding competitor to the country
 
             //Adding competitor to the game
             currentGame.addCompetitor(newCompetitor);

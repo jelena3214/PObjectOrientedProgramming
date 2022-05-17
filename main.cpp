@@ -12,7 +12,7 @@ int main() {
     EventParser evParser;
     int chosenRegime;
 
-    const char* eventFileName = "C:\\Users\\Lenovo\\CLionProjects\\POOP\\test.txt";
+    const char* eventFileName = "C:\\Users\\Lenovo\\CLionProjects\\POOP\\events.txt";
     const char* athletesFileName = "C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt";
     while(true) {
         cout << "Izaberite rezim ucitavanja: " << endl;
@@ -46,7 +46,7 @@ int main() {
     athParser.athletesParse(athletesFileName, athletes);
 
     DataManipulation dm(&evParser, &athletes);
-
+    //auto res = dm.bestYoungestAthletes();
     Filter filter;
     string space;
     int chosenOption;
@@ -131,7 +131,7 @@ int main() {
             }else if(chosenOption == 9){
                 auto sportpairs = dm.wonIndividualAndTeamMedal();
                 for(auto sportP: sportpairs){
-                    cout << sportP.first << " : " << sportP.second << endl;
+                    cout << *sportP.first << " : " << *sportP.second << endl;
                 }
             }else if(chosenOption == 10){
                 string season, city;

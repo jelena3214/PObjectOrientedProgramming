@@ -13,3 +13,7 @@ shared_ptr<Sport> Event::getSport() const {
     return sport;
 }
 
+bool Event::operator<(const Event &e) const {
+    return name < e.name && evType < e.evType;
+}
+
