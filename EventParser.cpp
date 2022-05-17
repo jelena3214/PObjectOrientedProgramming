@@ -27,7 +27,7 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
     bool group = (findForYear == -1); //Group regime
 
     while (getline(eventFile, tmp)) {
-        if (regex_search(tmp, matchLine, reLine) == true) {
+        if (regex_search(tmp, matchLine, reLine)) {
             string games = matchLine.str(1);
 
             regex_search(games, matchYearSeason, reYearSeason);

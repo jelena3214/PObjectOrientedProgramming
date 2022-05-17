@@ -22,7 +22,7 @@ void AthetesParser::athletesParse(const char *fileName, People &people) {
     }
 
     while (getline(eventFile, tmp)) {
-        if (regex_search(tmp, match, re) == true) {
+        if (regex_search(tmp, match, re)) {
             string id = match.str(1);
             if (athletes.find(stoi(id)) == athletes.end()) continue;
             string name = match.str(2);
