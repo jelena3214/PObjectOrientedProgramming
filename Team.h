@@ -22,8 +22,8 @@ public:
 
     int getNumberOfAthletes() const { return athleteIds.size(); }
 
-    set<int> *getId() override {
-        return &athleteIds;
+    set<int>& getId() override {
+        return athleteIds;
     }
 
 };

@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-void Game::addCompetitor(shared_ptr<Competitor> c) {
+void Game::addCompetitor(shared_ptr<Competitor> c) const{
     if (c != nullptr) {
         competitors.push_back(c);
     }
@@ -15,9 +15,10 @@ bool Game::operator==(const Game &g) {
 }
 
 bool Game::operator<(const Game &g2) const {
-    if (season < g2.season)return true;
-    if (year < g2.year) return true;
-    return false;
+    if(g2.city.empty() || city.empty())return tie(season, year) < tie(g2.season, g2.year);
+    else {
+        return tie(season, year, city) < tie(g2.season, g2.year, g2.city);
+    }
 }
 
 vector<shared_ptr<Competitor>> *Game::getCompetitors() {
@@ -27,6 +28,7 @@ vector<shared_ptr<Competitor>> *Game::getCompetitors() {
 const vector<shared_ptr<Competitor>> *Game::getCompetitors() const {
     return &competitors;
 }
+
 
 
 

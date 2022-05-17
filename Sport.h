@@ -21,7 +21,7 @@ public:
 
     Sport() {}
 
-    void addEvent(shared_ptr<Event> e) const;
+    shared_ptr<Event> addEvent(const string& name, const string& type) const;
 
     string getName() const { return name; }
 

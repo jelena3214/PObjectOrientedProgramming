@@ -12,7 +12,7 @@ void AthetesParser::athletesParse(const char *fileName, People &people) {
     if (!eventFile)throw FileNotFound();
 
     string tmp;
-    regex re("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)");
+    regex re("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)", regex::optimize);
     smatch match;
     int i = 0;
 

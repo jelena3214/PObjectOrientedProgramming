@@ -19,7 +19,7 @@ class Competitor {
 protected:
     MedalType medal;
     shared_ptr<Event> event;
-    Country *country;
+    shared_ptr<Country> country;
 public:
     void setMedal(MedalType m) { medal = m; }
 
@@ -29,17 +29,11 @@ public:
 
     MedalType getMedal() const { return medal; }
 
-    void setCountry(Country &c) { country = &c; }
+    void setCountry(shared_ptr<Country> c) { country = c; }
 
-    Country *getCountry() const { return country; }
+    shared_ptr<Country> getCountry() const { return country; }
 
-    virtual set<int> *getId(){
-        return nullptr;
-    }
-
-    ~Competitor() {
-        country = nullptr;
-    }
+    virtual set<int>& getId() = 0;
 
 };
 

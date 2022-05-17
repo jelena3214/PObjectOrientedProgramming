@@ -16,20 +16,20 @@ class Sport;
 class Event {
     string name;
     EventType evType;
-    Sport *sport;
+    shared_ptr<Sport> sport;
 
 public:
     Event(const string &n, EventType evt) : name(n), evType(evt) {}
 
-    void setSport(Sport &s) {
-        sport = &s;
+    void setSport(shared_ptr<Sport> s) {
+        sport = s;
     }
 
     string getName() const { return name; }
 
     EventType getType() const { return evType; }
 
-    Sport *getSport() const;
+    shared_ptr<Sport> getSport() const;
 
     bool operator==(const Event &e) const;
 
@@ -41,11 +41,6 @@ public:
             return false;
         }
     };
-
-    ~Event() {
-        sport = nullptr;
-    }
-
 
 };
 

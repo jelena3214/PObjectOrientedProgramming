@@ -13,17 +13,15 @@ using namespace std;
 
 class Athlete : public Competitor {
 private:
-    int id;
+    set<int> id;
 
 public:
-    Athlete(int idd) : id(idd) {}
+    Athlete(int idd) {id.insert(idd);}
 
     friend bool operator==(const Athlete &a1, const Athlete &a2);
 
-    set<int> *getId() override {
-        set<int> *tmp = new set<int>();
-        tmp->insert(id);
-        return tmp;
+    set<int>& getId() override {
+        return id;
     }
 };
 

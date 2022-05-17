@@ -43,13 +43,13 @@ public:
      */
     int numberOfDifferentSportsWithMedal(const string &country);
 
-    deque<Country *> bestCountriesAtGame(int year, const string &season);
+    deque<shared_ptr<Country>> bestCountriesAtGame(int year, const string &season);
 
-    set<Country *> bestCountries();
+    set<shared_ptr<Country>> bestCountries();
 
     vector<shared_ptr<Person>> bestYoungestAthletes();
 
-    set<pair<Country, shared_ptr<Person>>> wonIndividualAndTeamMedal();
+    set<pair<shared_ptr<Country>, shared_ptr<Person>>> wonIndividualAndTeamMedal();
 
     set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
 

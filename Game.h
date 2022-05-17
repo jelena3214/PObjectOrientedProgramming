@@ -15,14 +15,14 @@ class Game {
     string season;
     int year;
     string city;
-    vector<shared_ptr<Competitor>> competitors;
+    mutable vector<shared_ptr<Competitor>> competitors;
 
 public:
-    Game(string s, int y, string c) : season(s), year(y), city(c) {}
+    Game(string s, int y, string c = "") : season(s), year(y), city(c) {}
 
     Game() {}
 
-    void addCompetitor(shared_ptr<Competitor> c);
+    void addCompetitor(shared_ptr<Competitor> c) const;
 
     vector<shared_ptr<Competitor>> *getCompetitors();
 
@@ -39,6 +39,7 @@ public:
     bool operator==(const Game &g);
 
     int getYear() const { return year; }
+
 };
 
 

@@ -17,8 +17,9 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
 
     string tmp;
 
-    regex reLine("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)");
-    regex reYearSeason("(\\d+) ([^\\n]+)");
+    regex reLine("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)", regex::optimize);
+    regex reYearSeason("(\\d+) ([^\\n]+)", regex::optimize);
+    regex reIdParse("\\, ", regex::optimize);
 
     smatch matchLine;
     smatch matchYearSeason; //Year & season
@@ -45,19 +46,38 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
             string ids = matchLine.str(7);
             string medal = matchLine.str(8);
 
-            gamesSet.insert(Game(season, year, city));
-            countrySet.insert(Country(country));
-            sports.insert(Sport(sport));
+            //kada ubacim ovako makeshared???
 
-            shared_ptr<Event> competitorEvent = insertEventToSport(event, type,
-                                                                   sport); //returns event pointer for competitor
+            auto tmpGamePair = gamesSet.insert(Game(season, year, city));
+            auto& currentGame = *tmpGamePair.first;
+
+            auto tmpPair = countrySet.find(Country(country));
+            shared_ptr<Country> currentCountry;
+            if(tmpPair == countrySet.end()){
+                auto insertRes = countrySet.insert(make_shared<Country>(Country(country)));
+                currentCountry = *insertRes.first;
+            }else{
+                currentCountry = *tmpPair;
+            }
+
+            auto tmpSportPair = sports.find(Sport(sport));
+            shared_ptr<Sport> currentSport;
+            if(tmpSportPair == sports.end()){
+                auto insertRes = sports.insert(make_shared<Sport>(Sport(sport)));
+                currentSport = *insertRes.first;
+            }else{
+                currentSport = *tmpSportPair;
+            }
+
+            auto currentEvent = currentSport->addEvent(event, type);
+            currentEvent->setSport(currentSport);
 
             shared_ptr<Competitor> newCompetitor = nullptr;
             if (ids[0] == '[') { //Team
                 shared_ptr<Team> newTeam = make_shared<Team>();
                 ids = ids.substr(1, ids.size() - 2);
 
-                regex reIdParse("\\, ");
+
                 vector<string> out(
                         sregex_token_iterator(ids.begin(), ids.end(), reIdParse, -1),
                         sregex_token_iterator()
@@ -77,17 +97,14 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
             }
 
             MedalType m = MedalTypeClass::getMedalTypeFromString(medal);
-            newCompetitor->setEvent(competitorEvent);
+            newCompetitor->setEvent(currentEvent);
             newCompetitor->setMedal(m);
 
-            auto &tmpCounty = const_cast<Country &>(*countrySet.find(
-                    Country(country))); //Adding competitor to the country
-            newCompetitor->setCountry(tmpCounty);
-            tmpCounty.addCompetitor(newCompetitor);
+            newCompetitor->setCountry(currentCountry); //Adding competitor to the country
+            currentCountry->addCompetitor(newCompetitor);
 
-            auto &tmpGame = const_cast<Game &>(*gamesSet.find(
-                    Game(season, year, city))); //Adding competitor to the game
-            tmpGame.addCompetitor(newCompetitor);
+            //Adding competitor to the game
+            currentGame.addCompetitor(newCompetitor);
             competitors.push_back(newCompetitor);
 
         } else {
@@ -105,19 +122,4 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
     eventFile.close();
 }
 
-shared_ptr<Event> EventParser::insertEventToSport(const string &event, const string &type, const string &sport) {
-    //RETURNS EVENT FOR CONTESTANTS
-    EventType e = EventTypeClass::getEventTypeFromString(type);
-    shared_ptr<Event> newEvent = make_shared<Event>(event, e);
-    Sport tmpSport(sport);
-    auto it = sports.find(tmpSport);
-
-    if (it == sports.end()) {
-        cout << "Sport not included yet" << " :: ";
-        throw LoadingError();
-    }
-    newEvent->setSport(const_cast<Sport &>((*it)));
-    (*it).addEvent(newEvent);
-    return newEvent;
-}
 

@@ -4,14 +4,16 @@
 
 #include "Sport.h"
 
-void Sport::addEvent(shared_ptr<Event> e) const {
-    events.insert(e);
-}
-
 bool Sport::operator==(const Sport &s) const {
     return name == s.name;
 }
 
 bool Sport::operator<(const Sport &s) const {
     return name < s.name;
+}
+
+shared_ptr<Event> Sport::addEvent(const string &name, const string &type) const {
+    EventType e = EventTypeClass::getEventTypeFromString(type);
+    auto eventPair = events.insert(make_shared<Event>(Event(name, e)));
+    return *eventPair.first;
 }
