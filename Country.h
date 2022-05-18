@@ -8,6 +8,7 @@
 #include "Competitor.h"
 #include<string>
 #include<iostream>
+#include <utility>
 #include<vector>
 
 using namespace std;
@@ -16,9 +17,9 @@ class Country {
     string name;
     vector<shared_ptr<Competitor>> competitors;
 public:
-    Country(const string &n) : name(n) {}
+    Country(string n) : name(std::move(n)) {}
 
-    Country() {}
+    Country() = default;
 
     Country(const Country &c);
 

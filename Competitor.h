@@ -21,15 +21,15 @@ protected:
     shared_ptr<Event> event;
     shared_ptr<Country> country;
 public:
-    void setMedal(MedalType m) { medal = m; }
+    void setMedal(MedalType& m) { medal = m; }
 
-    void setEvent(shared_ptr<Event> e) { event = e; }
+    void setEvent(shared_ptr<Event>& e) { event = e; }
 
     shared_ptr<Event> getEvent() const { return event; }
 
     MedalType getMedal() const { return medal; }
 
-    void setCountry(shared_ptr<Country> c) { country = c; }
+    void setCountry(shared_ptr<Country> &c) { country = c; }
 
     shared_ptr<Country> getCountry() const { return country; }
 

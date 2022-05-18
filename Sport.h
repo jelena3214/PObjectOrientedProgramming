@@ -8,6 +8,7 @@
 #include<string>
 #include<set>
 #include<memory>
+#include <utility>
 #include "Event.h"
 
 using namespace std;
@@ -17,9 +18,9 @@ class Sport {
     mutable set<shared_ptr<Event>, Event::EventPrtComp> events;
 
 public:
-    Sport(const string &n) : name(n) {}
+    Sport(string n) : name(std::move(n)) {}
 
-    Sport() {}
+    Sport() = default;
 
     shared_ptr<Event> addEvent(const string& name, const string& type) const;
 

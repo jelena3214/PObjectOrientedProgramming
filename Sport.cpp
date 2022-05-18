@@ -22,5 +22,5 @@ shared_ptr<Event> Sport::addEvent(const string &name, const string &type) const 
     }else{
         event = *eventPair;
     }
-    return event;
+    return std::move(event);
 }

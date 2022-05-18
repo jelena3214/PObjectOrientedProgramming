@@ -21,7 +21,7 @@ class People {
 
     static People *instance;
 
-    People() {}
+    People() = default;
 
 public:
     static People &getInstance() {
@@ -31,15 +31,15 @@ public:
         return *instance;
     }
 
-    static void deleteInstance() { free(instance); }
+    static void deleteInstance() { delete instance; }
 
-    void addPerson(shared_ptr<Person> p) {
+    void addPerson(shared_ptr<Person>& p) {
         athletes[p->getId()] = p;
     }
 
     set<shared_ptr<Person>> getPeople(set<int> ids);
 
-    shared_ptr<Person> getPerson(int id) {
+    shared_ptr<Person>& getPerson(int id) {
         return athletes.at(id);
     }
 

@@ -21,29 +21,16 @@ using namespace std;
 class EventParser {
 public:
 
-    struct CountryPrtComp { //for comparing pointers in set of countries
+    template <typename T>  //For comparing shared pointers(Country and Sport)
+    struct SharedPtrComparator{
         using is_transparent = void;
-        bool operator()(const shared_ptr<Country>& e, const shared_ptr<Country>& e1) const {
+        bool operator()(const shared_ptr<T>& e, const shared_ptr<T>& e1) const {
             return *e < *e1;
         }
-        bool operator()(const shared_ptr<Country>& e, const Country& e1) const {
+        bool operator()(const shared_ptr<T>& e, const T& e1) const {
             return *e < e1;
         }
-        bool operator()(const Country& e, const shared_ptr<Country>& e1) const {
-            return e < *e1;
-        }
-    };
-
-
-    struct SportPrtComp { //for comparing pointers in set of countries
-        using is_transparent = void;
-        bool operator()(const shared_ptr<Sport>& e, const shared_ptr<Sport>& e1) const {
-            return *e < *e1;
-        }
-        bool operator()(const shared_ptr<Sport>& e, const Sport& e1) const {
-            return *e < e1;
-        }
-        bool operator()(const Sport& e, const shared_ptr<Sport>& e1) const {
+        bool operator()(const T& e, const shared_ptr<T>& e1) const {
             return e < *e1;
         }
     };
@@ -51,9 +38,9 @@ public:
 private:
 
     vector<shared_ptr<Competitor>> competitors;
-    set<shared_ptr<Sport>, SportPrtComp> sports;
+    set<shared_ptr<Sport>, SharedPtrComparator<Sport>> sports;
     set<Game> gamesSet;
-    set<shared_ptr<Country>, CountryPrtComp> countrySet;
+    set<shared_ptr<Country>, SharedPtrComparator<Country>> countrySet;
     set<int> athletesId;
 
 
@@ -62,11 +49,11 @@ public:
 
     vector<shared_ptr<Competitor>> &getCompetitors() { return competitors; }
 
-    set<shared_ptr<Sport>, SportPrtComp>& getSports() { return sports; }
+    set<shared_ptr<Sport>, SharedPtrComparator<Sport>>& getSports() { return sports; }
 
     set<Game>& getGames() { return gamesSet; }
 
-    set<shared_ptr<Country>, CountryPrtComp>& getCountries() { return countrySet; }
+    set<shared_ptr<Country>, SharedPtrComparator<Country>>& getCountries() { return countrySet; }
 
     set<int>& getAthleteIds() { return athletesId; }
 

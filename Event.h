@@ -8,6 +8,7 @@
 #include "EventTypeClass.h"
 #include<string>
 #include <memory>
+#include <utility>
 
 using namespace std;
 
@@ -19,9 +20,9 @@ class Event {
     shared_ptr<Sport> sport;
 
 public:
-    Event(const string &n, EventType evt) : name(n), evType(evt) {}
+    Event(string n, EventType evt) : name(std::move(n)), evType(evt) {}
 
-    void setSport(shared_ptr<Sport> s) {
+    void setSport(shared_ptr<Sport>& s) {
         sport = s;
     }
 

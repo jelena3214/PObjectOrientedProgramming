@@ -5,7 +5,7 @@
 #ifndef POOP_ATHLETE_H
 #define POOP_ATHLETE_H
 
-#include<string.h>
+#include<string>
 #include<iostream>
 #include "Competitor.h"
 
@@ -16,7 +16,7 @@ private:
     set<int> id;
 
 public:
-    Athlete(int idd) {id.insert(idd);}
+    explicit Athlete(int idd) {id.insert(idd);}
 
     friend bool operator==(const Athlete &a1, const Athlete &a2);
 

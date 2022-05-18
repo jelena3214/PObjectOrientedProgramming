@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-void Game::addCompetitor(shared_ptr<Competitor> c) const{
+void Game::addCompetitor(shared_ptr<Competitor>& c) const{
     if (c != nullptr) {
         competitors.push_back(c);
     }

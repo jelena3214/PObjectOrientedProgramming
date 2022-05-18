@@ -6,6 +6,7 @@
 #define POOP_GAME_H
 
 #include<string>
+#include <utility>
 #include<vector>
 #include "Competitor.h"
 
@@ -13,22 +14,20 @@ using namespace std;
 
 class Game {
     string season;
-    int year;
+    int year{};
     string city;
     mutable vector<shared_ptr<Competitor>> competitors;
 
 public:
-    Game(string s, int y, string c = "") : season(s), year(y), city(c) {}
+    Game(string s, int y, string c = "") : season(std::move(s)), year(y), city(std::move(c)) {}
 
-    Game() {}
+    Game() = default;
 
-    void addCompetitor(shared_ptr<Competitor> c) const;
+    void addCompetitor(shared_ptr<Competitor>& c) const;
 
     vector<shared_ptr<Competitor>> *getCompetitors();
 
     const vector<shared_ptr<Competitor>> *getCompetitors() const;
-
-    int numberOfCompetitors() const { return competitors.size(); }
 
     string getName() const { return season; }
 

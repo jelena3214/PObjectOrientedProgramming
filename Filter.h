@@ -24,8 +24,8 @@ private:
     bool eventFlag = false, medalFlag = false;
 
 public:
-    explicit Filter(const string ss = "", const string cc = "", const int yy = 0, const string ev = "",
-                    const string mt = "") :
+    explicit Filter(const string& ss = "", const string& cc = "", const int yy = 0, const string& ev = "",
+                    const string& mt = "") :
             sport(ss), country(cc), year(yy) {
         if (!ev.empty()) eventType = EventTypeClass::getEventTypeFromString(ev), eventFlag = true;
         if (!mt.empty()) medalType = MedalTypeClass::getMedalTypeFromString(mt), medalFlag = true;

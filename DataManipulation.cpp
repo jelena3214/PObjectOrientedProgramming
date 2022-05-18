@@ -48,7 +48,7 @@ vector<shared_ptr<Competitor>> DataManipulation::getFilteredCompetitors(Filter f
 
     if (res.empty()) {
         cout << "getFilteredCompetitors function :: ";
-        throw ErrorGetingDataFromEventParser();
+        throw ErrorGettingDataFromEventParser();
     }
 
     if (f.isYearSet()) {
