@@ -5,11 +5,12 @@
 #include "DataManipulation.h"
 #include "Exceptions.h"
 #include <unordered_map>
+#include <utility>
 
 int DataManipulation::numberOfPlayers(Filter f) {
     vector<shared_ptr<Competitor>> res;
     try {
-        res = getFilteredCompetitors(f);
+        res = getFilteredCompetitors(std::move(f));
     } catch (const exception &e) {
         cout << e.what() << endl;
         throw BasicFilteringError();
@@ -17,7 +18,7 @@ int DataManipulation::numberOfPlayers(Filter f) {
 
     set<int> ids;
 
-    for (shared_ptr<Competitor> cmp: res) {
+    for (const shared_ptr<Competitor>& cmp: res) {
         auto& tmp = cmp->getId();
         for (int p: tmp) {
             ids.insert(p);
@@ -30,13 +31,13 @@ int DataManipulation::numberOfPlayers(Filter f) {
 int DataManipulation::numOfDisciplines(Filter f) {
     vector<shared_ptr<Competitor>> res;
     try {
-        res = getFilteredCompetitors(f);
+        res = getFilteredCompetitors(std::move(f));
     } catch (const exception &e) {
         cout << e.what() << endl;
         throw BasicFilteringError();
     }
     set<shared_ptr<Event>, Event::EventPrtComp> events;
-    for (shared_ptr<Competitor> c: res) {
+    for (const shared_ptr<Competitor>& c: res) {
         events.insert(c->getEvent());
     }
 
@@ -66,7 +67,7 @@ vector<shared_ptr<Competitor>> DataManipulation::getFilteredCompetitors(Filter f
 double DataManipulation::averageAthletesHeight(Filter f) {
     vector<shared_ptr<Competitor>> res;
     try {
-        res = getFilteredCompetitors(f);
+        res = getFilteredCompetitors(std::move(f));
     } catch (const exception &e) {
         cout << e.what() << endl;
         throw BasicFilteringError();
@@ -74,7 +75,7 @@ double DataManipulation::averageAthletesHeight(Filter f) {
 
     double averageHeight = 0;
     int numOfAthletes = 0;
-    for (shared_ptr<Competitor> cmp: res) {
+    for (const shared_ptr<Competitor>& cmp: res) {
         for (int i: cmp->getId()) {
             int height = athletes->getPerson(i)->getHeight();
             if (height) {
@@ -91,7 +92,7 @@ double DataManipulation::averageAthletesHeight(Filter f) {
 double DataManipulation::averageAthletesWeight(Filter f) {
     vector<shared_ptr<Competitor>> res;
     try {
-        res = getFilteredCompetitors(f);
+        res = getFilteredCompetitors(std::move(f));
     } catch (const exception &e) {
         cout << e.what() << endl;
         throw BasicFilteringError();
@@ -99,7 +100,7 @@ double DataManipulation::averageAthletesWeight(Filter f) {
 
     double averageWeight = 0;
     int numOfAthletes = 0;
-    for (shared_ptr<Competitor> cmp: res) {
+    for (const shared_ptr<Competitor>& cmp: res) {
         for (int i: cmp->getId()) {
             int weight = athletes->getPerson(i)->getWeight();
             if (weight) {
@@ -124,7 +125,7 @@ int DataManipulation::numberOfDifferentSportsWithMedal(const string &country) {
     set<Sport> sportsWithMedal;
     auto countryData = *found;
 
-    for (shared_ptr<Competitor> comp: countryData->getCompetitors()) {
+    for (const shared_ptr<Competitor>& comp: countryData->getCompetitors()) {
         if (comp->getMedal() != MedalType::NA) {
             sportsWithMedal.insert(*comp->getEvent()->getSport());
         }
@@ -133,7 +134,7 @@ int DataManipulation::numberOfDifferentSportsWithMedal(const string &country) {
 }
 
 deque<shared_ptr<Country>> DataManipulation::bestCountriesAtGame(int year, const string &season) {
-
+//tuple
     struct medalCounter {
         mutable int gold, silver, bronze;
 
@@ -148,7 +149,7 @@ deque<shared_ptr<Country>> DataManipulation::bestCountriesAtGame(int year, const
     typedef pair<shared_ptr<Country>, medalCounter> MyPair;
 
     struct Comp { //for comparing pairs
-        bool operator()(MyPair e, MyPair e1) const {
+        bool operator()(const MyPair& e, const MyPair& e1) const {
             if (e.first->getName() < e1.first->getName())return true;
             if (e.first->getName() > e1.first->getName())return false;
             return false;
@@ -176,11 +177,11 @@ deque<shared_ptr<Country>> DataManipulation::bestCountriesAtGame(int year, const
         if (cmp->getMedal() == MedalType::BRONZE)a.first->second.incBronze();
     }
 
-    for (MyPair p: countryMedalCount) { //inserting in vector because of sorting
+    for (const MyPair& p: countryMedalCount) { //inserting in vector because of sorting
         sortedVect.push_back(p);
     }
 
-    sort(sortedVect.begin(), sortedVect.end(), [](MyPair e, MyPair e1) {
+    sort(sortedVect.begin(), sortedVect.end(), [](const MyPair& e, const MyPair& e1) {
         if (e.second.gold != e1.second.gold) { return e.second.gold > e1.second.gold; }
         if (e.second.silver != e1.second.silver) { return e.second.silver > e1.second.silver; }
         if (e.second.bronze != e1.second.bronze)return e.second.bronze > e1.second.bronze;
@@ -200,7 +201,7 @@ set<shared_ptr<Country>> DataManipulation::bestCountries() {
     set<shared_ptr<Country>> countries;
     auto games = evParser->getGames();
 
-    for (Game g: games) {
+    for (const Game& g: games) {
         auto ret = bestCountriesAtGame(g.getYear(), g.getName());
         auto s = ret.front();
         countries.insert(s);
@@ -214,14 +215,14 @@ set<string> DataManipulation::olympicCities() {
 
     auto games = evParser->getGames();
 
-    for (Game tmpGame: games) {
+    for (const Game& tmpGame: games) {
         cities.insert(tmpGame.getCity());
     }
 
     return cities;
 }
 
-set<shared_ptr<Person>> DataManipulation::participatedAtGames(pair<Game, Game> gamePair) {
+set<shared_ptr<Person>> DataManipulation::participatedAtGames(const pair<Game, Game>& gamePair) {
     auto games = evParser->getGames();
     auto gameTmp1 = games.find(gamePair.first);
     auto gameTmp2 = games.find(gamePair.second);
@@ -258,7 +259,7 @@ set<shared_ptr<Person>> DataManipulation::participatedAtGames(pair<Game, Game> g
 
     if (intersection.empty()) {
         cout << "No athletes that match the search\n";
-        return set<shared_ptr<Person>>();
+        return {};
     }
 
     return athletes->getPeople(intersection);
@@ -279,7 +280,7 @@ DataManipulation::countryTeamsAtGame(int year, const string &season, const strin
 
     vector<shared_ptr<Competitor>> countryTeam;
 
-    for (shared_ptr<Competitor> comp: *game.getCompetitors()) {
+    for (const shared_ptr<Competitor>& comp: *game.getCompetitors()) {
         if (comp->getCountry()->getName() == country && comp->getId().size() > 1) {
             countryTeam.push_back(comp);
         }
@@ -307,7 +308,7 @@ set<pair<shared_ptr<Country>, shared_ptr<Person>>> DataManipulation::wonIndividu
     for (auto &count: countries) {
         set<int> wonIndividualMedal;
         set<int> wonTeamMedal;
-        for (shared_ptr<Competitor> cmp: count->getCompetitors()) {
+        for (const shared_ptr<Competitor>& cmp: count->getCompetitors()) {
             if (cmp->getMedal() == MedalType::NA)continue;
             if (cmp->getId().size() == 1) { //individual
                 wonIndividualMedal.insert(*cmp->getId().begin());
@@ -319,7 +320,7 @@ set<pair<shared_ptr<Country>, shared_ptr<Person>>> DataManipulation::wonIndividu
         set<int> intersect;
         set_intersection(wonTeamMedal.begin(), wonTeamMedal.end(), wonIndividualMedal.begin(), wonIndividualMedal.end(),
                          std::inserter(intersect, intersect.begin()));
-        if (intersect.size() == 0)continue;
+        if (intersect.empty())continue;
         for (int id: intersect) {
             pair<shared_ptr<Country>, shared_ptr<Person>> tmp;
             tmp.first = count;

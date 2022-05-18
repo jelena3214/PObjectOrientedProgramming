@@ -16,9 +16,8 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
     if (!eventFile)throw FileNotFound();
 
     string tmp;
-
-    regex reLine("([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)", regex::optimize);
-    regex reYearSeason("(\\d+) ([^\\n]+)", regex::optimize);
+    //jedan regex
+    regex reLine("(\\d+) ([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)", regex::optimize);
     regex reIdParse("\\, ", regex::optimize);
 
     smatch matchLine;
@@ -28,23 +27,21 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
 
     while (getline(eventFile, tmp)) {
         if (regex_search(tmp, matchLine, reLine)) {
-            string games = matchLine.str(1);
+            int year = stoi(matchLine.str(1));
 
-            regex_search(games, matchYearSeason, reYearSeason);
-            int year = stoi(matchYearSeason.str(1));
-            string season = matchYearSeason.str(2);
+            string season = matchLine.str(2);
 
             if (!group) {
                 if (year != findForYear)continue;
             }
 
-            string city = matchLine.str(2);
-            string sport = matchLine.str(3);
-            string event = matchLine.str(4);
-            string type = matchLine.str(5);
-            string country = matchLine.str(6);
-            string ids = matchLine.str(7);
-            string medal = matchLine.str(8);
+            string city = matchLine.str(3);
+            string sport = matchLine.str(4);
+            string event = matchLine.str(5);
+            string type = matchLine.str(6);
+            string country = matchLine.str(7);
+            string ids = matchLine.str(8);
+            string medal = matchLine.str(9);
 
             //Insert game
             auto tmpGamePair = gamesSet.insert(Game(season, year, city));
@@ -88,15 +85,16 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
 
                 for (auto IdPart: out) {
                     IdPart = IdPart.substr(1, IdPart.size() - 2); //Removing quotes
-                    newTeam->addAthlete(stoi(IdPart));
-                    athletesId.insert(stoi(IdPart));
+                    int newId = stoi(IdPart);
+                    newTeam->addAthlete(newId);
+                    athletesId.insert(newId);
                 }
                 newCompetitor = newTeam;
             } else { //Athlete
-                shared_ptr<Athlete> newAthlete = make_shared<Athlete>(stoi(ids));
-                athletesId.insert(stoi(ids));
+                int newId = stoi(ids);
+                shared_ptr<Athlete> newAthlete = make_shared<Athlete>(newId);
+                athletesId.insert(newId);
                 newCompetitor = newAthlete;
-
             }
 
             //Set Medal for Competitor
@@ -111,12 +109,10 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
             //Adding competitor to the game
             currentGame.addCompetitor(newCompetitor);
             competitors.push_back(newCompetitor);
-
         } else {
             cout << "Not found" << " :: ";
             throw RegexError();
         }
-
     }
 
     if (gamesSet.empty()) {

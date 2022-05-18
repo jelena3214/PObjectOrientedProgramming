@@ -51,7 +51,7 @@ public:
 
     set<pair<shared_ptr<Country>, shared_ptr<Person>>> wonIndividualAndTeamMedal();
 
-    set<shared_ptr<Person>> participatedAtGames(pair<Game, Game>);
+    set<shared_ptr<Person>> participatedAtGames(const pair<Game, Game>&);
 
     vector<shared_ptr<Competitor>> countryTeamsAtGame(int year, const string &season, const string &country);
 

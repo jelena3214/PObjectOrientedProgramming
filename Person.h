@@ -22,9 +22,9 @@ public:
 
     int getId() const { return id; }
 
-    double getHeight() const { return height; }
+    int getHeight() const { return height; }
 
-    double getWeight() const { return weight; }
+    int getWeight() const { return weight; }
 
     int getYears() const { return yearsOld; }
 

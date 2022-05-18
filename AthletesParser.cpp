@@ -33,15 +33,14 @@ void AthetesParser::athletesParse(const char *fileName, People &people) {
             if (height == "NA")height = "0";
             string weight = match.str(6);
             if (weight == "NA")weight = "0";
-            people.addPerson(make_shared<Person>(stoi(id), stoi(yearsOld), stoi(height), stoi(weight), name, gender));
+            shared_ptr<Person> newPerson = make_shared<Person>(stoi(id), stoi(yearsOld), stoi(height), stoi(weight), name, gender);
+            people.addPerson(newPerson);
             cout << i++ << endl;
         } else {
             cout << "Not found" << " :: ";
             throw RegexError();
         }
-
     }
 
     eventFile.close();
-
 }

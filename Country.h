@@ -21,9 +21,9 @@ public:
 
     Country() = default;
 
-    Country(const Country &c);
-
     void addCompetitor(shared_ptr<Competitor> c);
+
+    Country(const Country &c);
 
     string getName() { return name; }
 

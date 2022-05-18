@@ -4,15 +4,15 @@
 #include "DataManipulation.h"
 #include "MenuFunctions.h"
 
-//TODO finish filter methods, resolve todo issues in those files and finish filters
 //TODO consult
+//TODO exceptions constructor, tuple in one function
 
 int main() {
     People athletes = People::getInstance();
     EventParser evParser;
     int chosenRegime;
 
-    const char* eventFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\events.txt)";
+    const char* eventFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\test.txt)";
     const char* athletesFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\athletesFile.txt)";
     while(true) {
         cout << "Izaberite rezim ucitavanja: " << endl;
