@@ -4,7 +4,7 @@
 #include "DataManipulation.h"
 #include "MenuFunctions.h"
 
-//TODO finish filter methods, resolve todo isues in those files and finish filters
+//TODO finish filter methods, resolve todo issues in those files and finish filters
 //TODO consult
 
 int main() {
@@ -12,8 +12,8 @@ int main() {
     EventParser evParser;
     int chosenRegime;
 
-    const char* eventFileName = "C:\\Users\\Lenovo\\CLionProjects\\POOP\\events.txt";
-    const char* athletesFileName = "C:\\Users\\Lenovo\\CLionProjects\\POOP\\athletesFile.txt";
+    const char* eventFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\events.txt)";
+    const char* athletesFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\athletesFile.txt)";
     while(true) {
         cout << "Izaberite rezim ucitavanja: " << endl;
         cout << "1. Grupni rezim\n"
@@ -114,23 +114,23 @@ int main() {
                 cout << "Unesi godinu: " << endl;
                 cin >> year;
                 auto res = dm.bestCountriesAtGame(year, season);
-                for (auto country: res) {
+                for (const auto& country: res) {
                     cout << *country << endl;
                 }
                 continue;
             } else if (chosenOption == 7) {
                 auto res = dm.bestCountries();
-                for (auto country: res) {
+                for (const auto& country: res) {
                     cout << *country << endl;
                 }
             }else if(chosenOption  == 8){
                 auto res = dm.bestYoungestAthletes();
-                for(auto person: res){
+                for(const auto& person: res){
                     cout << *person << endl;
                 }
             }else if(chosenOption == 9){
                 auto sportpairs = dm.wonIndividualAndTeamMedal();
-                for(auto sportP: sportpairs){
+                for(const auto& sportP: sportpairs){
                     cout << *sportP.first << " : " << *sportP.second << endl;
                 }
             }else if(chosenOption == 10){
@@ -153,7 +153,7 @@ int main() {
                 gamess.first = first;
                 gamess.second = second;
                 auto res = dm.participatedAtGames(gamess);
-                for(auto athlete: res){
+                for(const auto& athlete: res){
                     cout << *athlete << endl;
                 }
             }else if(chosenOption == 11){
@@ -183,7 +183,7 @@ int main() {
                 }
             }else if(chosenOption == 12){
                 auto cities = dm.olympicCities();
-                for(auto city: cities){
+                for(const auto& city: cities){
                     cout << city << endl;
                 }
             }else if(chosenOption == 13){
