@@ -55,7 +55,9 @@ vector<shared_ptr<Competitor>> DataManipulation::getFilteredCompetitors(Filter f
     if (f.isYearSet()) {
         try {
             res = f.yearFiltering(evParser->getGames());
-        }catch(const ReturnError& r){}
+        }catch(const ReturnError& r){
+            throw ReturnError();
+        }
     }
     res = f.sportFiltering(res);
     res = f.countryFiltering(res);
