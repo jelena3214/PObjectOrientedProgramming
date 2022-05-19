@@ -27,10 +27,18 @@ vector<shared_ptr<Competitor>> Filter::countryFiltering(vector<shared_ptr<Compet
 }
 
 vector<shared_ptr<Competitor>> Filter::yearFiltering(set<Game> games) {
-    auto t = find_if(games.begin(), games.end(), [this](Game g) { return g.getYear() == year; });
-    if(t == games.end()) throw ReturnError();
-    auto tmp = const_cast<Game &>(*t);
-    return *tmp.getCompetitors();
+    vector<Game> vectGame(games.begin(), games.end());
+    vectGame.erase(remove_if(vectGame.begin(), vectGame.end(),
+                          [this](const Game& g) { return g.getYear() != year; }),
+                vectGame.end());
+    if(vectGame.empty())throw ReturnError();
+    vector<shared_ptr<Competitor>> returnVect;
+    for(auto tmp: vectGame){
+        for(const auto& person: *tmp.getCompetitors()){
+            returnVect.push_back(person);
+        }
+    }
+    return returnVect;
 }
 
 vector<shared_ptr<Competitor>> Filter::eventTypeFiltering(vector<shared_ptr<Competitor>> competitors) {

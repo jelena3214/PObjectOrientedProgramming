@@ -134,7 +134,6 @@ int DataManipulation::numberOfDifferentSportsWithMedal(const string &country) {
 }
 
 deque<shared_ptr<Country>> DataManipulation::bestCountriesAtGame(int year, const string &season) {
-//tuple
     struct medalCounter {
         mutable int gold, silver, bronze;
 
@@ -287,6 +286,16 @@ DataManipulation::countryTeamsAtGame(int year, const string &season, const strin
     }
 
     sort(countryTeam.begin(), countryTeam.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
+        if(c->getId().size() == c1->getId().size()){
+            if (c->getEvent()->getName() != c1->getEvent()->getName())
+                return c->getEvent()->getName() < c1->getEvent()->getName();
+            return false;
+        }
+        return c->getId().size() > c1->getId().size();
+    });
+
+
+    /*sort(countryTeam.begin(), countryTeam.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
         return c->getId().size() > c1->getId().size();
     });
 
@@ -294,7 +303,7 @@ DataManipulation::countryTeamsAtGame(int year, const string &season, const strin
         if (c->getEvent()->getName() != c1->getEvent()->getName())
             return c->getEvent()->getName() < c1->getEvent()->getName();
         return false;
-    });
+    });*/
 
     return countryTeam;
 }

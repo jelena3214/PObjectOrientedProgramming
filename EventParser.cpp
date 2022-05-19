@@ -16,7 +16,6 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
     if (!eventFile)throw FileNotFound();
 
     string tmp;
-    //jedan regex
     regex reLine("(\\d+) ([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^!]+)!([^\\n]*)", regex::optimize);
     regex reIdParse("\\, ", regex::optimize);
 

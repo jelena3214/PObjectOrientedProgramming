@@ -5,14 +5,14 @@
 #include "MenuFunctions.h"
 
 //TODO consult
-//TODO exceptions constructor, tuple in one function
+//TODO exceptions constructor
 
 int main() {
     People athletes = People::getInstance();
     EventParser evParser;
     int chosenRegime;
 
-    const char* eventFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\test.txt)";
+    const char* eventFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\events.txt)";
     const char* athletesFileName = R"(C:\Users\Lenovo\CLionProjects\POOP\athletesFile.txt)";
     while(true) {
         cout << "Izaberite rezim ucitavanja: " << endl;
@@ -76,7 +76,7 @@ int main() {
                 } else if (type == 2) {
                     typeName = "Team";
                 } else typeName = "";
-                cout << "Unesite tip medalje 1(Zlatna), 2(Srebrna), 3(Bronzana), (0 nista):  " << endl;
+                cout << "Unesite tip medalje 1(Zlatna), 2(Srebrna), 3(Bronzana), (4 NA), (0 nista):  " << endl;
                 int medal;
                 cin >> medal;
                 string medalName;
@@ -86,7 +86,9 @@ int main() {
                     medalName = "Silver";
                 } else if (medal == 3) {
                     medalName = "Bronze";
-                } else medalName = "";
+                } else if(medal == 4){
+                    medalName = "NA";
+                }else medalName = "";
 
                 filter = Filter((sport != "/"?sport:""), (country != "/"?country:""), year, typeName, medalName);
             }
