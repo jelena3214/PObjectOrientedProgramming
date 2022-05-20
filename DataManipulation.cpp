@@ -297,16 +297,6 @@ DataManipulation::countryTeamsAtGame(int year, const string &season, const strin
     });
 
 
-    /*sort(countryTeam.begin(), countryTeam.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
-        return c->getId().size() > c1->getId().size();
-    });
-
-    sort(countryTeam.begin(), countryTeam.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
-        if (c->getEvent()->getName() != c1->getEvent()->getName())
-            return c->getEvent()->getName() < c1->getEvent()->getName();
-        return false;
-    });*/
-
     return countryTeam;
 }
 

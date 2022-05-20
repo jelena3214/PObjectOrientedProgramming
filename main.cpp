@@ -4,8 +4,6 @@
 #include "DataManipulation.h"
 #include "MenuFunctions.h"
 
-//TODO consult
-//TODO exceptions constructor
 
 int main() {
     People athletes = People::getInstance();
@@ -46,7 +44,7 @@ int main() {
     athParser.athletesParse(athletesFileName, athletes);
 
     DataManipulation dm(&evParser, &athletes);
-    //auto res = dm.bestYoungestAthletes();
+
     Filter filter;
     string space;
     int chosenOption;

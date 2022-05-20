@@ -13,7 +13,6 @@
 //Postoji samo jedna instanca People koja zadrzi sve potrebne ucesnike za taj filter
 //Na kraju programa se to dealocira
 //A dok u Athlete i Team cuvamo samo id/jeve koji im trebaju
-//Ubaci indekciranje i vracanje potrebnog coveka iz mape
 using namespace std;
 
 class People {
