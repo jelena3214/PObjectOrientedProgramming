@@ -178,7 +178,8 @@ int main() {
                         if(k < ids.size() - 1)cout << ", ";
                         k++;
                     }
-                    cout << "]" << endl;
+                    cout << "]";
+                    cout << " " << t->getEvent()->getName() << endl;
                     i++;
                 }
             }else if(chosenOption == 12){
