@@ -269,25 +269,32 @@ set<shared_ptr<Person>> DataManipulation::participatedAtGames(const pair<Game, G
 vector<shared_ptr<Competitor>>
 DataManipulation::countryTeamsAtGame(int year, const string &season, const string &country) {
     auto games = evParser->getGames();
-    Game findG(season, year);
-    auto gameTmp = games.find(findG);
+    vector<Game> vectGame;
+    for(const auto& game: games){ //Find games that happened that year
+        if(game.getYear() == year && game.getName() == season){
+            vectGame.push_back(game);
+        }
+    }
 
-    if (gameTmp == games.end()) {
+    if (vectGame.empty()) {
         cout << "countryTeamsAtGame error : game not found :: ";
         throw AdvancedFilteringError();
     }
 
-    auto game = const_cast<Game &>(*gameTmp);
-
-    vector<shared_ptr<Competitor>> countryTeam;
-
-    for (const shared_ptr<Competitor>& comp: *game.getCompetitors()) {
-        if (comp->getCountry()->getName() == country && comp->getId().size() > 1) {
-            countryTeam.push_back(comp);
+    vector<shared_ptr<Competitor>> competitors; //Competitors on those games
+    for(auto elem: vectGame){
+        for(const auto& comp: *elem.getCompetitors()){
+            competitors.push_back(comp);
         }
     }
 
-    sort(countryTeam.begin(), countryTeam.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
+    competitors.erase(remove_if(competitors.begin(), competitors.end(),
+                             [this, &country](const shared_ptr<Competitor>& comp) {
+        return comp->getCountry()->getName() != country || comp->getId().size() == 1; }),
+                      competitors.end());
+
+
+    sort(competitors.begin(), competitors.end(), [](const shared_ptr<Competitor>& c, const shared_ptr<Competitor>& c1) {
         if(c->getId().size() == c1->getId().size()){
             if (c->getEvent()->getName() != c1->getEvent()->getName())
                 return c->getEvent()->getName() < c1->getEvent()->getName();
@@ -297,7 +304,7 @@ DataManipulation::countryTeamsAtGame(int year, const string &season, const strin
     });
 
 
-    return countryTeam;
+    return competitors;
 }
 
 set<pair<shared_ptr<Country>, shared_ptr<Person>>> DataManipulation::wonIndividualAndTeamMedal() {

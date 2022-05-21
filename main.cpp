@@ -44,7 +44,6 @@ int main() {
     athParser.athletesParse(athletesFileName, athletes);
 
     DataManipulation dm(&evParser, &athletes);
-
     Filter filter;
     string space;
     int chosenOption;
