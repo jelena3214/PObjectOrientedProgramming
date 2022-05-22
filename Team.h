@@ -16,7 +16,7 @@ private:
     set<int> athleteIds;
 
 public:
-    Team() {}
+    Team() = default;
 
     void addAthlete(int athlete);
 

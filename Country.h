@@ -21,7 +21,7 @@ public:
 
     Country() = default;
 
-    void addCompetitor(shared_ptr<Competitor> c);
+    void addCompetitor(const shared_ptr<Competitor> &c);
 
     Country(const Country &c);
 

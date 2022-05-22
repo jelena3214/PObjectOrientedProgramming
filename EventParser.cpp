@@ -44,25 +44,25 @@ void EventParser::eventParsing(const char *fileName, int findForYear) {
 
             //Insert game
             auto tmpGamePair = gamesSet.insert(Game(season, year, city));
-            auto& currentGame = *tmpGamePair.first;
+            auto &currentGame = *tmpGamePair.first;
 
             //Insert country
             auto tmpPair = countrySet.find(Country(country));
             shared_ptr<Country> currentCountry;
-            if(tmpPair == countrySet.end()){ //Doesn't exist
+            if (tmpPair == countrySet.end()) { //Doesn't exist
                 auto insertRes = countrySet.insert(make_shared<Country>(Country(country)));
                 currentCountry = *insertRes.first;
-            }else{
+            } else {
                 currentCountry = *tmpPair;
             }
 
             //Insert sport
             auto tmpSportPair = sports.find(Sport(sport));
             shared_ptr<Sport> currentSport;
-            if(tmpSportPair == sports.end()){ //Doesn't exist
+            if (tmpSportPair == sports.end()) { //Doesn't exist
                 auto insertRes = sports.insert(make_shared<Sport>(Sport(sport)));
                 currentSport = *insertRes.first;
-            }else{
+            } else {
                 currentSport = *tmpSportPair;
             }
 

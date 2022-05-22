@@ -14,7 +14,7 @@ using namespace std;
 
 class Game {
     string season;
-    int year{};
+    int year;
     string city;
     mutable vector<shared_ptr<Competitor>> competitors;
 

@@ -4,7 +4,7 @@
 
 #include "Country.h"
 
-void Country::addCompetitor(shared_ptr<Competitor> c) {
+void Country::addCompetitor(const shared_ptr<Competitor>& c) {
     if (c)competitors.push_back(c);
 }
 

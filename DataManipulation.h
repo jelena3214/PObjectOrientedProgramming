@@ -57,6 +57,9 @@ public:
 
     set<string> olympicCities();
 
+    //Helper
+    vector<shared_ptr<Competitor>> getCompetitorsOnGame(int year, const string &season);
+
 };
 
 
