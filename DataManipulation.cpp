@@ -75,7 +75,7 @@ double DataManipulation::averageAthletesHeight(Filter f) {
         throw BasicFilteringError();
     }
 
-    double averageHeight = 0;
+    int averageHeight = 0;
     int numOfAthletes = 0;
     for (const shared_ptr<Competitor> &cmp: res) {
         for (int i: cmp->getId()) {
@@ -100,7 +100,7 @@ double DataManipulation::averageAthletesWeight(Filter f) {
         throw BasicFilteringError();
     }
 
-    double averageWeight = 0;
+    int averageWeight = 0;
     int numOfAthletes = 0;
     for (const shared_ptr<Competitor> &cmp: res) {
         for (int i: cmp->getId()) {
